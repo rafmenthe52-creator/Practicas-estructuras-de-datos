@@ -2,6 +2,11 @@
 #include <stdio.h>
 #include <string.h>
 
+#include "types.h"
+#include "music.h"
+#include "radio.h"
+#include "stack.h"
+
 int show_player_menu(Stack *history);
 int show_player_menu(Stack *history) {
     int option;
