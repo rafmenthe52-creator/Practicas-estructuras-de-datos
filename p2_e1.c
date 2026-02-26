@@ -46,7 +46,7 @@ int main(int argc, char** argv) {
 	Radio* r;
 	Stack* s;
 	Music** list;
-	int n, i, mReturn;
+	int i, mReturn;
 
 	if (argc != 2) {
 		return -1;
@@ -77,7 +77,6 @@ int main(int argc, char** argv) {
       stack_pop(s);
     }
 	}
-	
 
 	return 0;
 }
