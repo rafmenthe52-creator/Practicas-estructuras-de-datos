@@ -46,7 +46,7 @@ int main(int argc, char** argv) {
 	Radio* r;
 	Stack* s;
 	Music** list;
-	int n, i;
+	int n, i, mReturn;
 
 	if (argc != 2) {
 		return -1;
@@ -68,26 +68,15 @@ int main(int argc, char** argv) {
 
 	list = radio_getMusicList(r);
 
-	n = radio_getNumberOfMusic(r);
-
-	for (i = 0; i < n; i++) {
+	for (i = 0; i < radio_getNumberOfMusic(r); i++) {
 		stack_push(s, list[i]);
 	}
 
-	while (stack_isEmpty(s) == FALSE && show_player_menu(s) != 2) {
-		switch (show_player_menu(s)) {
-		case 1:
-			stack_pop(s);
-			break;
-		case 2:
-			exit_execution(r, list, s);
-			break;
-
-		default:
-			break;
-		}
+	while (stack_isEmpty(s) == FALSE && (mReturn=show_player_menu(s)) != 2) {
+    if(mReturn==1){
+      stack_pop(s);
+    }
 	}
-
 	
 
 	return 0;
