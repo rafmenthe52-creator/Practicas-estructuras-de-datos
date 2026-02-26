@@ -39,6 +39,8 @@ int main (int argc, char **argv) {
   FILE* f;
   Radio* r;
   Stack* s;
+  Music **list;
+  int n, i;
 
   if (argc != 2) {
     return -1;
@@ -57,6 +59,16 @@ int main (int argc, char **argv) {
   } 
 
   s=stack_init();
+
+  list=radio_getMusicList(r);
+
+  n=radio_getNumberOfMusic(r);
+
+  for(i=0, i<n, i++){
+    stack_push(s, list[i])
+  }
+
+  free(list);
 }
 
 
