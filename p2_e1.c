@@ -65,7 +65,19 @@ int main (int argc, char **argv) {
   n=radio_getNumberOfMusic(r);
 
   for(i=0, i<n, i++){
-    stack_push(s, list[i])
+    stack_push(s, list[i]);
+  }
+  
+  music_formatted_print(stack_top(s));
+
+  if(!list){
+    fprintf(stdout, "No song currently playing.");
+  }else{
+    fprintf(stdout, "Recently played: \n SIZE: %d", stack_size(s));
+
+    for(i=stack_size(s); i>0; i--){
+      music_plain_print(list[i]);
+    }
   }
 
   free(list);
