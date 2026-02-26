@@ -281,3 +281,19 @@ Status radio_readFromFile(FILE* fin, Radio* r) {
 
   return OK;
 }
+
+Music** radio_getMusicList(Radio* radio){
+  Music **musicList;
+  int i;
+  
+  if(!radio){
+    return NULL;
+  }
+  musicList=(music**)malloc(radio->num_music*sizeof(Music*))
+
+  for(i=0; i<num_music; i++){
+    musicList[i]=radio->song[i];
+  }  
+
+  return musicList;
+}

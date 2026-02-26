@@ -203,4 +203,14 @@ int radio_print(FILE* pf, const Radio* r);
  */
 Status radio_readFromFile(FILE* fin, Radio* r);
 
+/**
+ * @brief Returns a list of all the music in a radio
+ *
+ * @param r Pointer to the radio.
+ *
+ * @return A dinamic array of musics, which needs to be freed later. 
+ * If error it returns NULL
+ **/
+Music** radio_getMusicList(Radio* radio)
+
 #endif /* radio_H */
