@@ -74,19 +74,7 @@ int main(int argc, char** argv) {
 		stack_push(s, list[i]);
 	}
 
-	music_formatted_print(stdout, stack_top(s));
-
-	if (!list) {
-		fprintf(stdout, "No song currently playing.");
-	} else {
-		fprintf(stdout, "Recently played: \n SIZE: %d", stack_size(s));
-
-		for (i = stack_size(s); i > 0; i--) {
-			music_plain_print(stdout, list[i]);
-		}
-	}
-
-	while (stack_isEmpty == FALSE && show_player_menu != 2) {
+	while (stack_isEmpty(s) == FALSE && show_player_menu(s) != 2) {
 		switch (show_player_menu(s)) {
 		case 1:
 			stack_pop(s);
