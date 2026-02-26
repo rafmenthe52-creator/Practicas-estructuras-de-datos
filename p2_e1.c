@@ -72,7 +72,7 @@ int main(int argc, char** argv) {
 		stack_push(s, list[i]);
 	}
 
-	while (stack_isEmpty(s) == FALSE && (mReturn=show_player_menu(s)) != 2) {
+	while ((mReturn=show_player_menu(s)) != 2) {
     if(mReturn==1){
       stack_pop(s);
     }
