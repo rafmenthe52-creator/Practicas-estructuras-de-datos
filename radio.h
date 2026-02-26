@@ -211,6 +211,6 @@ Status radio_readFromFile(FILE* fin, Radio* r);
  * @return A dinamic array of musics, which needs to be freed later. 
  * If error it returns NULL
  **/
-Music** radio_getMusicList(Radio* radio)
+Music** radio_getMusicList(Radio* radio);
 
 #endif /* radio_H */
