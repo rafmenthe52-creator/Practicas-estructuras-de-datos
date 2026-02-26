@@ -7,7 +7,7 @@ EJS = p2_e1
 OBJECTSP1E1 = p1_e1.o music.o
 OBJECTSP1E2 = p1_e2.o radio.o music.o
 OBJECTSP1E3 = p1_e3.o radio.o music.o
-OBJECTSP2E1 = p1_e1.o radio.o music.o
+OBJECTSP2E1 = p2_e1.o radio.o music.o
 ########################################################
 
 all: $(EJS)
