@@ -31,7 +31,7 @@ int show_player_menu(Stack* history) {
 
 	scanf("%d", &option);
 
-  if(int!=typeof(mReturn)){
+  if(int!=typeof(option)){
     return 0;
   }
 
