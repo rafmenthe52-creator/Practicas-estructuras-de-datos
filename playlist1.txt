@@ -1,0 +1,11 @@
+10
+iid:"643" title:"Greedy" artist:"Tate McRae" duration:"131"
+id:"426" title:"Lovin On Me" artist:"Jack Harlow" duration:"146"
+id:"289" title:"As It Was" artist:"Harry Styles" duration:"167"
+id:"512" title:"Espresso" artist:"Sabrina Carpenter" duration:"175"
+id:"157" title:"Cruel Summer" artist:"Taylor Swift" duration:"178"
+id:"675" title:"Beautiful Things" artist:"Benson Boone" duration:"180"
+id:"908" title:"Flowers" artist:"Miley Cyrus" duration:"200"
+id:"390" title:"Lose Control" artist:"Teddy Swims" duration:"210"
+id:"861" title:"Paint The Town Red" artist:"Doja Cat" duration:"231"
+id:"734" title:"Calm Down" artist:"Rema" duration:"239"

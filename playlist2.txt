@@ -1,0 +1,7 @@
+6
+id:"678" title:"Smells Like Teen Spirit" artist:"Nirvana" duration:"301"
+id:"990" title:"Bohemian Rhapsody" artist:"Queen" duration:"354"
+id:"804" title:"Like a Rolling Stone" artist:"Bob Dylan" duration:"369"
+id:"842" title:"Hotel California" artist:"Eagles" duration:"391"
+id:"556" title:"Hey Jude" artist:"The Beatles" duration:"431"
+id:"713" title:"Stairway to Heaven" artist:"Led Zeppelin" duration:"482"
