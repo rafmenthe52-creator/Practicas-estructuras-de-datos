@@ -36,7 +36,27 @@ int show_player_menu(Stack *history) {
 
 /* TODO MAIN FUNCTION */
 int main (int argc, char **argv) {
+  FILE* f;
+  Radio* r;
+  Stack* s;
 
+  if (argc != 2) {
+    return -1;
+  }
+
+  f = fopen(argv[1], "r");
+  if (f == NULL) {
+    fprintf(stderr, "Error al leer el fichero de texto");
+    return -1;
+  }
+
+  r = radio_init();
+
+  if (radio_readFromFile(f, r) == ERROR) {
+    return -1;
+  } 
+
+  s=stack_init();
 }
 
 
