@@ -72,3 +72,5 @@ int main(void) {
 
   return 0;
 }
+
+/*p1_e2.c:9:16: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘{’ token 9 | int main(void) { | ^ p1_e2.c:75: error: expected ‘{’ at end of input p1_e2.c:75: warning: control reaches end of non-void function [-Wreturn-type] make: *** [Makefile:28: p1_e2.o] Error 1*/

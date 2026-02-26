@@ -37,7 +37,7 @@ int show_player_menu(Stack* history) {
 void exit_execution(Radio* radio, Music** list, Stack* s) {
   free(list);
   radio_free(radio);
-  stack_free(stack)
+  stack_free(s);
 }
 
 /* TODO MAIN FUNCTION */

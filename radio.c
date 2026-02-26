@@ -289,10 +289,10 @@ Music** radio_getMusicList(Radio* radio){
   if(!radio){
     return NULL;
   }
-  musicList=(music**)malloc(radio->num_music*sizeof(Music*))
+  musicList=(Music**)malloc(radio->num_music*sizeof(Music*));
 
-  for(i=0; i<num_music; i++){
-    musicList[i]=radio->song[i];
+  for(i=0; i<radio->num_music; i++){
+    musicList[i]=radio->songs[i];
   }  
 
   return musicList;
