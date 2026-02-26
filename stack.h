@@ -17,6 +17,9 @@
 #define STACK_H
 
 #include "types.h"
+#include "file_utils.h"
+#include "music.h"
+#include "radio.h"
 #include <stdio.h>
 
 
@@ -90,7 +93,7 @@ Bool stack_isEmpty (const Stack *s);
  *
  * Time complexity: O(1).
  * @param s A pointer to the stack.
- * @return the size
+ * @return the size. If error -1
  */
 size_t stack_size (const Stack *s);
 
@@ -98,7 +101,7 @@ size_t stack_size (const Stack *s);
  * @brief  This function writes the elements of the stack to the stream.
  * @param fp A pointer to the stream
  * @param s A pointer to the element to the stack
- * @return Upon successful return, these function returns the number of characters writted.
+ * @return Upon successful return, these function returns the number of characters written.
  * The function returns a negative value if there was a problem writing to the file.
  *  */
 int stack_print(FILE* fp, const Stack *s,  P_stack_ele_print f);
