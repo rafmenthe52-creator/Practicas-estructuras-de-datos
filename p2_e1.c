@@ -29,11 +29,7 @@ int show_player_menu(Stack* history) {
 	printf("2. Exit\n");
 	printf("Choose an option: ");
 
-	scanf("%d", &option);
-
-  if(int!=typeof(option)){
-    return 0;
-  }
+	scanf("%d", &option);z
 
 	return option;
 }
