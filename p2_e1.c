@@ -34,10 +34,13 @@ int show_player_menu(Stack* history) {
 	return option;
 }
 
-void exit_execution(Radio* radio, Music** list, Stack* s) {
+void exit_execution(Radio* radio, Music** list, Stack* s, FILE *f) {
   free(list);
   radio_free(radio);
   stack_free(s);
+  fclose(f);
+
+  return;
 }
 
 /* TODO MAIN FUNCTION */
@@ -77,6 +80,8 @@ int main(int argc, char** argv) {
       stack_pop(s);
     }
 	}
+
+  exit_execution(r, list, s, f);
 
 	return 0;
 }
