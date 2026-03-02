@@ -105,13 +105,15 @@ size_t stack_size (const Stack *s){
 }
 
 int stack_print(FILE* fp, const Stack *s,  P_stack_ele_print f){
-  int i;
+  int i, n;
   
   if(!s || !fp){
     return -1;
   }
 
   for(i=0; i<s->top; i++){
-    
+    n+=f(fp, s->item[i]);
   }
+
+  return n;
 }
