@@ -13,7 +13,7 @@
 #include "music.h"
 #include "stack.h"
 
-Status mergeStacks (Stack *sin1, Stack *sin2, Stack *sout){
+Status mergeStacks (Stack *sin1, Stack *sin2, Stack *sout, ){
   while(stack_isEmpty(sin1)==FALSE && stack_isEmpty(sin2)==FALSE){
     if(music_getDuration(stack_top(sin1))>music_getDuration(stack_top(sin2))){
       stack_push(sout, stack_pop(sin1));
