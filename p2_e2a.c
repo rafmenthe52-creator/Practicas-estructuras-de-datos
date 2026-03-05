@@ -107,7 +107,7 @@ int main(int argc, char** argv){
   fprintf(stdout, "\nplaylist 2:");
   stack_print(stdout, s2, music_plain_print);
 
-  stack_init(s3);
+  s3=stack_init();
 
   mergeStacks(s1, s2, s3);
 
