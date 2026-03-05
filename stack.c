@@ -60,11 +60,11 @@ Status stack_push (Stack *sin, const void *ele){
     if(!(sexp=stack_expand(sin))){
       return ERROR;
     }
-    s = (Stack*)realloc(sexp, sexp->top*sizeof(s));
+    s = (Stack*)realloc(sexp, sexp->top*sizeof(sexp));
     
   }
 
-  s = (Stack*)realloc(sin, sin->top*sizeof(s));
+  s = (Stack*)realloc(sin, sin->top*sizeof(sin));
   if(!s){
     return ERROR;
   }
