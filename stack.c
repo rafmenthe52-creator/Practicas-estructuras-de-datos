@@ -21,7 +21,7 @@ Status stack_expand(Stack *sin){
     return ERROR;
   }
   
-  stack=(Stack*)realloc(sin, stack->capacity*FCT_CAPACITY*sizeof(Stack));
+  stack=(Stack*)realloc(sin, sin->capacity*FCT_CAPACITY*sizeof(Stack));
 
   return OK;
 }
