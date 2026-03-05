@@ -16,11 +16,8 @@ Status mergeStacks (Stack *sin1, Stack *sin2, Stack *sout){
     if(music_getDuration(stack_top(sin1))>music_getDuration(stack_top(sin2))){
       /*first is larger*/
       stack_push(sout, stack_pop(sin1));
-    }else if(f(stack_top(sin1), stack_top(sin2))>=0){
-      /*Second is larger*/
-      stack_push(sout, stack_pop(sin2));
     }else{
-      /*They are equal*/
+      /*Second is larger or equal*/
       stack_push(sout, stack_pop(sin2));
     }
   }
@@ -51,7 +48,7 @@ int main(int argc, char** argv){
 	Radio *r1, *r2;
 	Stack *s1, *s2, *s3;
 	Music **list1, **list2;
-	int i, mReturn;
+	int i;
 
 	if (argc != 3) {
 		return -1;
@@ -109,6 +106,8 @@ int main(int argc, char** argv){
   stack_print(stdout, s1, music_plain_print);
   fprintf(stdout, "\nplaylist 2:");
   stack_print(stdout, s2, music_plain_print);
+
+  stack_init(s3);
 
   mergeStacks(s1, s2, s3);
 
