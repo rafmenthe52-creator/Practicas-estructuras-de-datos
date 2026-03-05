@@ -239,6 +239,24 @@ int music_cmp(const void* m1, const void* m2) {
   }
 }
 
+int music_duration_cmp(const void* m1, const void* m2){
+  Music *music1, *music2;
+  
+  music1=(Music*)(m1);
+  music2=(Music*)(m2);
+
+  return music1->duration-music2->duration;
+}
+
+int music_artist_cmp(const void* m1, const void* m2){
+  Music *music1, *music2;
+
+  music1=(Music*)(m1);
+  music2=(Music*)(m2);
+
+  return strcmp(music1->artist, music2->artist);
+}
+
 void* music_copy(const void* src) {
   Music* music_in;
   Music* music_out;

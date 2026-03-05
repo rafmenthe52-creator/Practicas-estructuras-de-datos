@@ -14,52 +14,58 @@ struct _Stack {
 
 /*Private functions*/
 
-Status stack_expand(Stack *stack){
+Status stack_expand(Stack *sin){
+  Stack *stack;
+  
   if(!stack){
     return ERROR;
   }
   
-  stack=(*Stack)realloc(stack->capacity*FCT_CAPACITY*sizeof(Stack));
+  stack=(Stack*)realloc(sin, stack->capacity*FCT_CAPACITY*sizeof(Stack));
 
   return OK;
 }
 
 /*Public functions*/
 
-Stack * stack_init (){
+Stack* stack_init (){
   Stack *stack;
 
-  stack=(*Stack)malloc(INIT_CAPACITY*sizeof(Stack));
+  stack=(Stack*)malloc(INIT_CAPACITY*sizeof(Stack));
 
   return stack;
 }
 
 
 void stack_free (Stack *s){
+  int i;
+
   for(i=0; i<s->capacity; i++){
-    free(s->*item[i]);
+    free(s->item[i]);
   }
 
   free(s);
 }
 
-Status stack_push (Stack *s, const void *ele){
-  if(!s || !e){
+Status stack_push (Stack *sin, const void *ele){
+  Stack *s;
+  
+  if(!sin || !ele){
     return ERROR;
   }
 
-  if(s->top == s->capacity){
+  if(sin->top == sin->capacity){
     if(stack_expand(s)==ERROR){
       return ERROR;
     }
   }
 
-  s = (Stack*)realloc(s->top*sizeof(stack));
+  s = (Stack*)realloc(sin, sin->top*sizeof(s));
   if(!s){
     return ERROR;
   }
 
-  s->*item[s->top] = ele;
+  s->item[s->top] = ele;
 
   s->top++;
 
@@ -67,7 +73,7 @@ Status stack_push (Stack *s, const void *ele){
 }
 
 void * stack_pop (Stack *s){
-  if(!stack){
+  if(!s){
     return NULL;
   }
 
