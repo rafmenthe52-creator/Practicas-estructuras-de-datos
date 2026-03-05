@@ -14,7 +14,7 @@ struct _Stack {
 
 /*Private functions*/
 
-Status stack_expand(Stack *sin){
+Stack* stack_expand(Stack *sin){
   Stack *stack;
   
   if(!sin){
@@ -23,7 +23,7 @@ Status stack_expand(Stack *sin){
   
   stack=(Stack*)realloc(sin, sin->capacity*FCT_CAPACITY*sizeof(Stack));
 
-  return OK;
+  return stack;
 }
 
 /*Public functions*/
@@ -50,16 +50,18 @@ void stack_free (Stack *s){
 }
 
 Status stack_push (Stack *sin, const void *ele){
-  Stack *s;
+  Stack *s, *sexp;
   
   if(!sin || !ele){
     return ERROR;
   }
 
   if(sin->top == sin->capacity){
-    if(stack_expand(sin)==ERROR){
+    if(!(sexp=stack_expand(sin))){
       return ERROR;
     }
+    s = (Stack*)realloc(sexp, sexp->top*sizeof(s));
+    
   }
 
   s = (Stack*)realloc(sin, sin->top*sizeof(s));
