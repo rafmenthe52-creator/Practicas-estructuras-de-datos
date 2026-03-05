@@ -33,6 +33,8 @@ Stack* stack_init (){
 
   stack=(Stack*)malloc(INIT_CAPACITY*sizeof(Stack));
 
+  stack->capacity=FCT_CAPACITY;
+
   return stack;
 }
 
