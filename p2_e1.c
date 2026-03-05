@@ -76,9 +76,9 @@ int main(int argc, char** argv) {
 	}
 
 	while ((mReturn=show_player_menu(s)) != 2) {
-    if(mReturn==1){
-      stack_pop(s);
-    }
+		if(mReturn==1){
+		stack_pop(s);
+		}
 	}
 
   exit_execution(r, list, s, f);

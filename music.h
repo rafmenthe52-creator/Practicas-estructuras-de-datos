@@ -213,6 +213,25 @@ Status music_setState(Music* m, const State state);
 int music_cmp(const void* m1, const void* m2);
 
 
+
+/**
+ * @brief Compares the duration of two music.
+ *
+ * @param m1,m2 Music to compare.
+ *
+ * @return It returns the difference between the duration of both music
+ */
+int music_duration_cmp(const void* m1, const void* m2);
+
+/**
+ * @brief Compares the artists of two music.
+ *
+ * @param m1,m2 Music to compare.
+ *
+ * @return It returns the result of comparing the artists
+ */
+int music_artist_cmp(const void* m1, const void* m2);
+
 /**
  * @brief Reserves memory for a Music where it copies the data from
  * the Music src.
