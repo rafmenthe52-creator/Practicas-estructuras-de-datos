@@ -17,7 +17,7 @@ struct _Stack {
 Status stack_expand(Stack *sin){
   Stack *stack;
   
-  if(!stack){
+  if(!sin){
     return ERROR;
   }
   
@@ -55,7 +55,7 @@ Status stack_push (Stack *sin, const void *ele){
   }
 
   if(sin->top == sin->capacity){
-    if(stack_expand(s)==ERROR){
+    if(stack_expand(sin)==ERROR){
       return ERROR;
     }
   }
@@ -65,7 +65,7 @@ Status stack_push (Stack *sin, const void *ele){
     return ERROR;
   }
 
-  s->item[s->top] = ele;
+  s->item[s->top] = (void *)ele;
 
   s->top++;
 
