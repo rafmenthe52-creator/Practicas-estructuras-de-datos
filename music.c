@@ -175,7 +175,7 @@ Status music_setTitle(Music* m, const char* title) {
     return ERROR;
   }
 
-  if (strlen(title) > STR_LENGTH) {
+  if (strlen(title) > STR_LENGTH-1) {
     return ERROR;
   }
 
@@ -189,7 +189,7 @@ Status music_setArtist(Music* m, const char* artist) {
     return ERROR;
   }
 
-  if (strlen(artist) > STR_LENGTH) {
+  if (strlen(artist) > STR_LENGTH-1) {
     return ERROR;
   }
 
