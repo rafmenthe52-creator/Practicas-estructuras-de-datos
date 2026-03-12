@@ -138,22 +138,42 @@ void music_free(void* m) {
 }
 
 long music_getId(const Music* m) {
+  if(!m){
+    return NULL;
+  }
+
   return m->id;
 }
 
 const char* music_getTitle(const Music* m) {
+  if(!m){
+    return NULL;
+  }
+
   return m->title;
 }
 
 const char* music_getArtist(const Music* m) {
+  if(!m){
+    return NULL;
+  }
+
   return m->artist;
 }
 
 unsigned short music_getDuration(const Music* m) {
+  if(!m){
+    return NULL;
+  }
+ 
   return m->duration;
 }
 
 State music_getState(const Music* m) {
+  if(!m){
+    return NULL;
+  }
+  
   return m->state;
 }
 
