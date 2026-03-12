@@ -24,6 +24,20 @@ int radio_getPositionFromID(const Radio* r, long id) {
   return count;
 }
 
+Music* radio_getMusicFromId(Radio* r, long id){
+  int i;
+
+  if(id<0){
+    return NULL;
+  }
+
+  for(i=0; i<r->num_music; i++){
+    if(music_getId(r->songs[i])==id){
+      return r->songs[i];
+    }
+  }
+}
+
 /*
 Public functions
 */
@@ -96,6 +110,7 @@ Status radio_newMusic(Radio* r, char* desc) {
 
   if (!radio_contains(r, idaux)) {
     r->songs[r->num_music] = songaux;
+    music_setIndex(songaux, r->num_music);
   }
 
   r->num_music++;
@@ -296,4 +311,45 @@ Music** radio_getMusicList(Radio* radio){
   }  
 
   return musicList;
+}
+
+Status radio_depthSearch (Radio *r, long from_id, long to_id){
+  Status status=OK;
+  Stack *stack;
+  long *relations;
+  Music *musicCurrent;
+  int i;
+  
+  if(!r || from_id<0 ||to_id<0){
+    return ERROR;
+  }
+
+  stack=stack_init();
+
+  music_setState(radio_getMusicFromId(r, from_id), LISTENED);
+
+  stack_push(stack, radio_getMusicFromId(r, from_id));
+
+  while (stack_isEmpty(stack)==FALSE|| status==OK){
+    musicCurrent=stack_pop(stack);
+    music_plain_print(stdout, musicCurrent);
+
+    if(music_getId(musicCurrent)==to_id){
+      status=FINISHED;
+    }else{
+      relations=radio_getRelationsFromId(r, musicCurrent);
+      for(i=0; i<radio_getNumberOfRelationsFromId(r, music_getId(musicCurrent)); i++){
+        if(music_getState(radio_getMusicFromId(r, relations[i]))==NOT_LISTENED){
+          /*Change state to listened*/
+          music_setState(radio_getMusicFromId(r, relations[i]), LISTENED);
+          /*Push the related music to the stack*/
+          stack_push(stack, radio_getMusicFromId(r, relations[i]));
+        }
+      }
+      free(relations);
+    }
+  }
+  stack_free(stack);
+
+  return status;
 }

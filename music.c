@@ -30,6 +30,7 @@ struct _Music {
   char artist[STR_LENGTH];
   unsigned short duration;
   State state;
+  int index;
 };
 /*----------------------------------------------------------------------------------------*/
 /*
@@ -129,6 +130,7 @@ Music* music_init(void) {
   music_setArtist(music, "");
   music_setDuration(music, 0);
   music_setState(music, NOT_LISTENED);
+  music_setIndex(music, 0);
 
   return music;
 }
@@ -175,6 +177,14 @@ State music_getState(const Music* m) {
   }
   
   return m->state;
+}
+
+int music_getIndex(const Music* m){
+  if(!m){
+    return -1;
+  }
+
+  return m->index;
 }
 
 Status music_setId(Music* m, const long id) {
@@ -237,6 +247,15 @@ Status music_setState(Music* m, const State state) {
   }
 
   m->state = state;
+  return OK;
+}
+
+Status music_setIndex(Music* m, const int index){
+  if(!m || index < 0 || index > MAX_MSC){
+    return ERROR;
+  }
+
+  m->index = index;
   return OK;
 }
 
@@ -304,7 +323,7 @@ int music_plain_print(FILE* pf, const void* m) {
 
   music = (Music*)(m);
 
-  count = fprintf(pf, "[%ld, %s, %s, %hu, %d]", music->id, music->title, music->artist, music->duration, music->state);
+  count = fprintf(pf, "[%ld, %s, %s, %hu, %d, %d]", music->id, music->title, music->artist, music->duration, music->state, music->index);
 
   return count;
 }

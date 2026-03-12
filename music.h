@@ -17,6 +17,8 @@
 #include <stdlib.h>
 #include "types.h"
 
+#define MAX_MSC 4096
+
  /**
   * @brief State to characterize the Music state (to be used in P2)
   *
@@ -139,6 +141,15 @@ unsigned short music_getDuration(const Music* m);
  */
 State music_getState(const Music* m);
 
+/**
+ * @brief Gets the Music index position in the radio.
+ *
+ * @param m Music pointer
+ *
+ * @return Returns the index position of the given Music, or -1 in case of error.
+ */
+int music_getIndex(const Music* m);
+
 
 /**
  * @brief Modifies the id of a given Music.
@@ -194,7 +205,15 @@ Status music_setDuration(Music* m, const unsigned short duration);
  */
 Status music_setState(Music* m, const State state);
 
-
+/**
+ * @brief Modifies the index position of a given Music
+ *
+ * @param m Music pointer
+ * @param index New Music index position, must fit in the Music
+ *
+ * @return  Returns OK or ERROR in case of error.
+ */
+Status music_setIndex(Music* m, const int index);
 
 /**
  * @brief Compares two music.

@@ -15,6 +15,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "stack.h"
 #include "music.h"
 
 #define MAX_MSC 4096
@@ -149,7 +150,6 @@ long* radio_getRelationsFromId(const Radio* r, long id);
  */
 long radio_getIdFromPosition(const Radio* r, int pos);
 
-
 /**
  * @brief Prints a radio.
  *
@@ -212,5 +212,18 @@ Status radio_readFromFile(FILE* fin, Radio* r);
  * If error it returns NULL
  **/
 Music** radio_getMusicList(Radio* radio);
+
+/**
+* @brief: Makes a search from the origin music to the final music of a radio using the
+* depth-first search algorithm through an ADT Stack
+*
+* The function prints each visited music while traversing the radio
+*
+* @param r, Pointer to radio
+* @param from_id, id of the origin Music
+* @param to_id, id of the destination Music
+* @return The function returns OK or ERROR
+**/
+Status radio_depthSearch (Radio *r, long from_id, long to_id);
 
 #endif /* radio_H */
