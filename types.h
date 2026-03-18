@@ -30,4 +30,11 @@ typedef enum {
     FINISHED=2  /*!< Process FINISHED */
 } Status;
 
+/* Common Magic Numbers */
+#define INVALID_ID (-1)
+#define INVALID_INDEX (-1)
+#define INIT_VALUE 0
+#define SECONDS_PER_MINUTE 60
+#define POSITION_NOT_FOUND (-1)
+
 #endif /* TYPES_H_ */

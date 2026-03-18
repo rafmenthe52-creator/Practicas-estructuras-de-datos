@@ -112,6 +112,7 @@ int main(int argc, char** argv) {
   fprintf(stdout, "\nplaylist 2:");
   stack_print(stdout, s2, music_plain_print);
 
+  s3 = stack_init();
   mergeStacks(s1, s2, s3, music_artist_cmp);
 
   fprintf(stdout, "playlist combined:");

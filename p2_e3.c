@@ -21,8 +21,8 @@ int main(int argc, char** argv) {
     return -1;
   }
 
-  id_from = (long)argv[2];
-  id_to = (long)argv[3];
+  id_from = atol(argv[2]);
+  id_to = atol(argv[3]);
 
   r1 = radio_init();
 

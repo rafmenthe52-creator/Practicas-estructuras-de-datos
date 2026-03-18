@@ -13,8 +13,12 @@ int main(void) {
     Music* M3;
     int comp_Result;
     const char* name_Aux;
-    FILE* fp;
-    char line[MAX_LINE];
+
+    /* Create and initialize first song */
+    M1 = music_initFromString("id:\"10\" title:\"Blinding Lights\" artist:\"The Weeknd\" duration:\"200\"");
+
+    /* Create and initialize second song */
+    M2 = music_initFromString("id:\"20\" title:\"Bohemian Rhapsody\" artist:\"Queen\" duration:\"355\"");
 
     if ((-1 == music_formatted_print(stdout, M1))) {
         fprintf(stdout, "Error while printing song");

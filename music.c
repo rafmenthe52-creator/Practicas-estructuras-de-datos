@@ -125,12 +125,12 @@ Music* music_init(void) {
     return NULL;
   }
 
-  music_setId(music, 0);
+  music_setId(music, INIT_VALUE);
   music_setTitle(music, "");
   music_setArtist(music, "");
-  music_setDuration(music, 0);
+  music_setDuration(music, INIT_VALUE);
   music_setState(music, NOT_LISTENED);
-  music_setIndex(music, 0);
+  music_setIndex(music, INIT_VALUE);
 
   return music;
 }
@@ -141,7 +141,7 @@ void music_free(void* m) {
 
 long music_getId(const Music* m) {
   if (!m) {
-    return -1;
+    return INVALID_ID;
   }
 
   return m->id;
@@ -181,7 +181,7 @@ State music_getState(const Music* m) {
 
 int music_getIndex(const Music* m) {
   if (!m) {
-    return -1;
+    return INVALID_INDEX;
   }
 
   return m->index;
@@ -307,12 +307,12 @@ void* music_copy(const void* src) {
 
   music_out = music_init();
 
-  music_out->id = music_in->id;
-  strcpy(music_out->artist, music_in->artist);
-  strcpy(music_out->title, music_in->title);
-  music_out->duration = music_in->duration;
-  music_out->state = music_in->state;
-  music_out->index = music_in->index;
+  music_setId(music_out, music_getId(music_in));
+  music_setArtist(music_out, music_getArtist(music_in));
+  music_setTitle(music_out, music_getTitle(music_in));
+  music_setDuration(music_out, music_getDuration(music_in));
+  music_setState(music_out, music_getState(music_in));
+  music_setIndex(music_out, music_getIndex(music_in));
 
   return music_out;
 }
@@ -341,8 +341,8 @@ int music_formatted_print(FILE* pf, const void* m) {
   aux = (Music*)m;
 
   if (!aux->duration || aux->duration <= 0) return -1;
-  minutes = aux->duration / 60;
-  sec = aux->duration % 60;
+  minutes = aux->duration / SECONDS_PER_MINUTE;
+  sec = aux->duration % SECONDS_PER_MINUTE;
 
   counter = fprintf(pf, "\t ɴᴏᴡ ᴘʟᴀʏɪɴɢ: %s\n", aux->title);
   counter += fprintf(pf, "\t • Artist %s •\n", aux->artist);
