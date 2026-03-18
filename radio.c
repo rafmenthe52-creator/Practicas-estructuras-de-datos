@@ -334,7 +334,7 @@ Status radio_depthSearch(Radio* r, long from_id, long to_id) {
     if (music_getId(musicCurrent) == to_id) {
       status = FINISHED;
     } else {
-      relations = radio_getRelationsFromId(r, musicCurrent);
+      relations = radio_getRelationsFromId(r, music_getId(musicCurrent));
       for (i = 0; i < radio_getNumberOfRelationsFromId(r, music_getId(musicCurrent)); i++) {
         if (music_getState(radio_getMusicFromId(r, relations[i])) == NOT_LISTENED) {
           /*Change state to listened*/
