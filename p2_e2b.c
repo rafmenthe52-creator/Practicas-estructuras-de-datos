@@ -108,17 +108,14 @@ int main(int argc, char** argv) {
 
   /*Print all the playlist*/
   fprintf(stdout, "playlist 1:\n");
-  fprintf(stdout, "SIZE: %lu\n", stack_size(s1));
   stack_print(stdout, s1, music_plain_print);
   fprintf(stdout, "\nplaylist 2:\n");
-  fprintf(stdout, "SIZE: %lu\n", stack_size(s2));
   stack_print(stdout, s2, music_plain_print);
 
   s3 = stack_init();
   mergeStacks(s1, s2, s3, music_artist_cmp);
 
   fprintf(stdout, "\nplaylist combined:\n");
-  fprintf(stdout, "SIZE: %lu\n", stack_size(s3));
   stack_print(stdout, s3, music_plain_print);
 
   exit_execution(r1, list1, s1, f1);
