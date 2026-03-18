@@ -43,7 +43,7 @@ Stack* stack_init() {
   }
 
   stack->capacity = INIT_CAPACITY;
-  stack->top = 0;
+  stack->top = INIT_VALUE;
 
   return stack;
 }
@@ -109,7 +109,7 @@ size_t stack_size(const Stack* s) {
 }
 
 int stack_print(FILE* fp, const Stack* s, P_stack_ele_print f) {
-  int i, n = 0;
+  int i, n = INIT_VALUE;
 
   if (!s || !fp) {
     return -1;

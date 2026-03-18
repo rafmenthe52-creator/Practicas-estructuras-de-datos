@@ -12,12 +12,12 @@ Private functions
 */
 
 int radio_getPositionFromID(const Radio* r, long id) {
-  int count = 0;
+  int count = INIT_VALUE;
 
   while ((music_getId(r->songs[count])) != id) {
     count++;
     if (count >= r->num_music) {
-      return -1;
+      return POSITION_NOT_FOUND;
     }
   }
 
@@ -52,14 +52,14 @@ long radio_getIdFromPosition(const Radio* r, int pos) {
 
 Radio* radio_init(void) {
   Radio* radio;
-  int i = 0, j = 0;
+  int i = INIT_VALUE, j = INIT_VALUE;
 
   /*Allocate dynamic memory*/
   radio = (Radio*)malloc(1 * sizeof(Radio));
 
   /*Initialize non-array vatiables*/
-  radio->num_music = 0;
-  radio->nume_relations = 0;
+  radio->num_music = INIT_VALUE;
+  radio->nume_relations = INIT_VALUE;
 
   /*Initialize array variables to NULL*/
   for (i = 0; i < MAX_MSC; i++) {
@@ -68,7 +68,7 @@ Radio* radio_init(void) {
 
   for (i = 0; i < MAX_MSC; i++) {
     for (j = 0; j < MAX_MSC; j++) {
-      radio->relations[i][j] = 0;
+      radio->relations[i][j] = INIT_VALUE;
     }
 
   }
