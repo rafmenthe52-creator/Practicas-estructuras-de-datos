@@ -1,4 +1,11 @@
-#include "p1_e1.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#include "music.h"
+#include "types.h"
+
+#define MAX_LINE 256
 
 int main(void) {
     Music* M1;
