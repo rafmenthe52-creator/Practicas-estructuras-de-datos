@@ -16,27 +16,6 @@ int main(void) {
     FILE* fp;
     char line[MAX_LINE];
 
-
-    /* Open radio.txt and check for errors*/
-    fp = fopen("radio1.txt", "r");
-    if (!fp) {
-        fprintf(stderr, "Error opening file\n");
-        return 1;
-    }
-
-    /* Read number of songs (skip line)*/
-    fgets(line, sizeof(line), fp);
-
-    /* Read first song */
-    fgets(line, sizeof(line), fp);
-    M1 = music_initFromString(line);
-
-    /* Read second song */
-    fgets(line, sizeof(line), fp);
-    M2 = music_initFromString(line);
-
-    fclose(fp);
-
     if ((-1 == music_formatted_print(stdout, M1))) {
         fprintf(stdout, "Error while printing song");
         music_free(M1);

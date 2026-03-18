@@ -11,6 +11,14 @@ struct _Radio {
 Private functions
 */
 
+/**
+ * @brief gets the position of a song from his id
+ *
+ * @param r Pointer to the radio.
+ * @param id the id of the song in the radio.
+ *
+ * @return returns the song's position
+ */
 int radio_getPositionFromID(const Radio* r, long id) {
   int count = 0;
 
@@ -24,6 +32,14 @@ int radio_getPositionFromID(const Radio* r, long id) {
   return count;
 }
 
+/**
+ * @brief gets a song of a radio from his id
+ *
+ * @param r Pointer to the radio.
+ * @param id the id of the song.
+ *
+ * @return returns the song.
+ */
 Music* radio_getMusicFromId(Radio* r, long id) {
   int i;
 
@@ -36,6 +52,8 @@ Music* radio_getMusicFromId(Radio* r, long id) {
       return r->songs[i];
     }
   }
+
+  return NULL;
 }
 
 /*
@@ -55,7 +73,7 @@ Radio* radio_init(void) {
   int i = 0, j = 0;
 
   /*Allocate dynamic memory*/
-  radio = (Radio*)malloc(1 * sizeof(Radio));
+  radio = (Radio*)calloc(1, sizeof(Radio));
 
   /*Initialize non-array vatiables*/
   radio->num_music = 0;
@@ -337,7 +355,7 @@ Status radio_depthSearch(Radio* r, long from_id, long to_id) {
     if (music_getId(musicCurrent) == to_id) {
       status = FINISHED;
     } else {
-      relations = radio_getRelationsFromId(r, musicCurrent);
+      relations = radio_getRelationsFromId(r, music_getId(musicCurrent));
       for (i = 0; i < radio_getNumberOfRelationsFromId(r, music_getId(musicCurrent)); i++) {
         if (music_getState(radio_getMusicFromId(r, relations[i])) == NOT_LISTENED) {
           /*Change state to listened*/
