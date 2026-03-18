@@ -2,8 +2,7 @@
 CC=gcc
 CFLAGS= -g -Wall -pedantic
 STACKFLAGS= -g -Wall -pedantic -lstack -L.
-EJS = p2_e2a
-#EJS = p1_e1 p1_e2 p1_e3 p2_e1 p2_e2b p2_e3
+EJS = p1_e1 p1_e2 p1_e3 p2_e1 p2_e2a p2_e2b p2_e3
 ########################################################
 OBJECTSP1E1 = p1_e1.o music.o
 OBJECTSP1E2 = p1_e2.o radio.o music.o
@@ -21,13 +20,13 @@ OBJECTSP2E3S = p2_e3.o radio.o music.o
 all: $(EJS)
 
 p1_e1: $(OBJECTSP1E1)
-	$(CC) $(CFLAGS) -o p1_e1 $(OBJECTSP1E1)
+	$(CC) $(CFLAGS) -o p1_e1 $(OBJECTSP1E1) -lstack -L.
 
 p1_e2: $(OBJECTSP1E2)
-	$(CC) $(CFLAGS) -o p1_e2 $(OBJECTSP1E2)
+	$(CC) $(CFLAGS) -o p1_e2 $(OBJECTSP1E2) -lstack -L.
 
 p1_e3: $(OBJECTSP1E3)
-	$(CC) $(CFLAGS) -o p1_e3 $(OBJECTSP1E3)
+	$(CC) $(CFLAGS) -o p1_e3 $(OBJECTSP1E3) -lstack -L.
 
 p2_e1: $(OBJECTSP2E1)
 	$(CC) $(CFLAGS) -o p2_e1 $(OBJECTSP2E1)

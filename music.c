@@ -121,7 +121,7 @@ Music* music_initFromString(char* descr) {
 Music* music_init(void) {
   Music* music = NULL;
 
-  if (!(music = (Music*)malloc(1 * sizeof(Music)))) {
+  if (!(music = (Music*)calloc(1, sizeof(Music)))) {
     return NULL;
   }
 
@@ -140,7 +140,7 @@ void music_free(void* m) {
 }
 
 long music_getId(const Music* m) {
-  if(!m){
+  if (!m) {
     return -1;
   }
 
@@ -148,7 +148,7 @@ long music_getId(const Music* m) {
 }
 
 const char* music_getTitle(const Music* m) {
-  if(!m){
+  if (!m) {
     return NULL;
   }
 
@@ -156,7 +156,7 @@ const char* music_getTitle(const Music* m) {
 }
 
 const char* music_getArtist(const Music* m) {
-  if(!m){
+  if (!m) {
     return NULL;
   }
 
@@ -164,23 +164,23 @@ const char* music_getArtist(const Music* m) {
 }
 
 unsigned short music_getDuration(const Music* m) {
-  if(!m){
+  if (!m) {
     return 0;
   }
- 
+
   return m->duration;
 }
 
 State music_getState(const Music* m) {
-  if(!m){
+  if (!m) {
     return 0;
   }
-  
+
   return m->state;
 }
 
-int music_getIndex(const Music* m){
-  if(!m){
+int music_getIndex(const Music* m) {
+  if (!m) {
     return -1;
   }
 
@@ -205,7 +205,7 @@ Status music_setTitle(Music* m, const char* title) {
     return ERROR;
   }
 
-  if (strlen(title) > STR_LENGTH-1) {
+  if (strlen(title) > STR_LENGTH - 1) {
     return ERROR;
   }
 
@@ -219,7 +219,7 @@ Status music_setArtist(Music* m, const char* artist) {
     return ERROR;
   }
 
-  if (strlen(artist) > STR_LENGTH-1) {
+  if (strlen(artist) > STR_LENGTH - 1) {
     return ERROR;
   }
 
@@ -250,8 +250,8 @@ Status music_setState(Music* m, const State state) {
   return OK;
 }
 
-Status music_setIndex(Music* m, const int index){
-  if(!m || index < 0 || index > MAX_MSC){
+Status music_setIndex(Music* m, const int index) {
+  if (!m || index < 0 || index > MAX_MSC) {
     return ERROR;
   }
 
@@ -278,20 +278,20 @@ int music_cmp(const void* m1, const void* m2) {
   }
 }
 
-int music_duration_cmp(const void* m1, const void* m2){
-  Music *music1, *music2;
-  
-  music1=(Music*)(m1);
-  music2=(Music*)(m2);
+int music_duration_cmp(const void* m1, const void* m2) {
+  Music* music1, * music2;
 
-  return music1->duration-music2->duration;
+  music1 = (Music*)(m1);
+  music2 = (Music*)(m2);
+
+  return music1->duration - music2->duration;
 }
 
-int music_artist_cmp(const void* m1, const void* m2){
-  Music *music1, *music2;
+int music_artist_cmp(const void* m1, const void* m2) {
+  Music* music1, * music2;
 
-  music1=(Music*)(m1);
-  music2=(Music*)(m2);
+  music1 = (Music*)(m1);
+  music2 = (Music*)(m2);
 
   return strcmp(music1->artist, music2->artist);
 }

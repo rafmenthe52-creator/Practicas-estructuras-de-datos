@@ -24,15 +24,15 @@ int radio_getPositionFromID(const Radio* r, long id) {
   return count;
 }
 
-Music* radio_getMusicFromId(Radio* r, long id){
+Music* radio_getMusicFromId(Radio* r, long id) {
   int i;
 
-  if(id<0){
+  if (id < 0) {
     return NULL;
   }
 
-  for(i=0; i<r->num_music; i++){
-    if(music_getId(r->songs[i])==id){
+  for (i = 0; i < r->num_music; i++) {
+    if (music_getId(r->songs[i]) == id) {
       return r->songs[i];
     }
   }
@@ -66,7 +66,7 @@ Radio* radio_init(void) {
     radio->songs[i] = NULL;
   }
 
-  for (i = 0; i > MAX_MSC; i++) {
+  for (i = 0; i < MAX_MSC; i++) {
     for (j = 0; j < MAX_MSC; j++) {
       radio->relations[i][j] = 0;
     }
@@ -297,49 +297,49 @@ Status radio_readFromFile(FILE* fin, Radio* r) {
   return OK;
 }
 
-Music** radio_getMusicList(Radio* radio){
-  Music **musicList;
+Music** radio_getMusicList(Radio* radio) {
+  Music** musicList;
   int i;
-  
-  if(!radio){
+
+  if (!radio) {
     return NULL;
   }
-  musicList=(Music**)malloc(radio->num_music*sizeof(Music*));
+  musicList = (Music**)malloc(radio->num_music * sizeof(Music*));
 
-  for(i=0; i<radio->num_music; i++){
-    musicList[i]=radio->songs[i];
-  }  
+  for (i = 0; i < radio->num_music; i++) {
+    musicList[i] = radio->songs[i];
+  }
 
   return musicList;
 }
 
-Status radio_depthSearch (Radio *r, long from_id, long to_id){
-  Status status=OK;
-  Stack *stack;
-  long *relations;
-  Music *musicCurrent;
+Status radio_depthSearch(Radio* r, long from_id, long to_id) {
+  Status status = OK;
+  Stack* stack;
+  long* relations;
+  Music* musicCurrent;
   int i;
-  
-  if(!r || from_id<0 ||to_id<0){
+
+  if (!r || from_id < 0 || to_id < 0) {
     return ERROR;
   }
 
-  stack=stack_init();
+  stack = stack_init();
 
   music_setState(radio_getMusicFromId(r, from_id), LISTENED);
 
   stack_push(stack, radio_getMusicFromId(r, from_id));
 
-  while (stack_isEmpty(stack)==FALSE|| status==OK){
-    musicCurrent=stack_pop(stack);
+  while (stack_isEmpty(stack) == FALSE || status == OK) {
+    musicCurrent = stack_pop(stack);
     music_plain_print(stdout, musicCurrent);
 
-    if(music_getId(musicCurrent)==to_id){
-      status=FINISHED;
-    }else{
-      relations=radio_getRelationsFromId(r, musicCurrent);
-      for(i=0; i<radio_getNumberOfRelationsFromId(r, music_getId(musicCurrent)); i++){
-        if(music_getState(radio_getMusicFromId(r, relations[i]))==NOT_LISTENED){
+    if (music_getId(musicCurrent) == to_id) {
+      status = FINISHED;
+    } else {
+      relations = radio_getRelationsFromId(r, musicCurrent);
+      for (i = 0; i < radio_getNumberOfRelationsFromId(r, music_getId(musicCurrent)); i++) {
+        if (music_getState(radio_getMusicFromId(r, relations[i])) == NOT_LISTENED) {
           /*Change state to listened*/
           music_setState(radio_getMusicFromId(r, relations[i]), LISTENED);
           /*Push the related music to the stack*/

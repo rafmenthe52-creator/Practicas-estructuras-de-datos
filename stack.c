@@ -7,7 +7,7 @@
 #define FCT_CAPACITY 2 // multiply the stack capacity
 
 struct _Stack {
-  void **item; /*!<Static array of elements*/
+  void** item; /*!<Static array of elements*/
   int top; /*!<index of the top element in the stack*/
   int capacity; /*!<xcapacity of the stack*/
 };
@@ -16,24 +16,23 @@ struct _Stack {
 
 /*Stack* stack_expand(Stack *sin){
   Stack *stack;
-  
+
   if(!sin){
     return ERROR;
   }
-  
+
   stack=(Stack*)realloc(sin, sin->capacity*FCT_CAPACITY*sizeof(Stack));
 
   return stack;
 }*/
 
-Stack* stack_expand(Stack *sin){
-  void **new_item;
-  
-  if(!sin) return NULL;
-  
-  new_item = (void**)realloc(sin->item, 
-                              sin->capacity * FCT_CAPACITY * sizeof(void*));
-  if(!new_item) return NULL;
+Stack* stack_expand(Stack* sin) {
+  void** new_item;
+
+  if (!sin) return NULL;
+
+  new_item = (void**)realloc(sin->item, sin->capacity * FCT_CAPACITY * sizeof(void*));
+  if (!new_item) return NULL;
 
   sin->item = new_item;
   sin->capacity = sin->capacity * FCT_CAPACITY;
@@ -53,14 +52,14 @@ Stack* stack_expand(Stack *sin){
   return stack;
 }*/
 
-Stack* stack_init (){
-  Stack *stack;
+Stack* stack_init() {
+  Stack* stack;
 
   stack = (Stack*)malloc(sizeof(Stack));
-  if(!stack) return NULL;
-  
+  if (!stack) return NULL;
+
   stack->item = (void**)malloc(INIT_CAPACITY * sizeof(void*));
-  if(!stack->item){
+  if (!stack->item) {
     free(stack);
     return NULL;
   }
@@ -72,10 +71,10 @@ Stack* stack_init (){
 }
 
 
-void stack_free (Stack *s){
+void stack_free(Stack* s) {
   int i;
 
-  for(i=0; i<s->capacity; i++){
+  for (i = 0; i < s->capacity; i++) {
     free(s->item[i]);
   }
 
@@ -84,7 +83,7 @@ void stack_free (Stack *s){
 
 /*Status stack_push (Stack *sin, const void *ele){
   Stack *s, *sexp;
-  
+
   if(!sin || !ele){
     return ERROR;
   }
@@ -94,7 +93,7 @@ void stack_free (Stack *s){
       return ERROR;
     }
     s = (Stack*)realloc(sexp, sexp->top*sizeof(sexp));
-    
+
   }
 
   s = (Stack*)realloc(sin, sin->top*sizeof(sin));
@@ -109,23 +108,23 @@ void stack_free (Stack *s){
   return OK;
 }*/
 
-Status stack_push (Stack *sin, const void *ele){
-  if(!sin || !ele) return ERROR;
+Status stack_push(Stack* sin, const void* ele) {
+  if (!sin || !ele) return ERROR;
 
-  if(sin->top == sin->capacity){
-    if(!stack_expand(sin)){
+  if (sin->top == sin->capacity) {
+    if (!stack_expand(sin)) {
       return ERROR;
     }
   }
 
-  sin->item[sin->top] = (void *)ele;
+  sin->item[sin->top] = (void*)ele;
   sin->top++;
 
   return OK;
 }
 
-void * stack_pop (Stack *s){
-  if(!s){
+void* stack_pop(Stack* s) {
+  if (!s) {
     return NULL;
   }
 
@@ -134,43 +133,43 @@ void * stack_pop (Stack *s){
   return s->item[s->top];
 }
 
-void * stack_top (const Stack *s){
-  if(!s){
+void* stack_top(const Stack* s) {
+  if (!s) {
     return NULL;
   }
-  
-  return s->item[s->top-1];
+
+  return s->item[s->top - 1];
 }
 
-Bool stack_isEmpty (const Stack *s){
-  if(!s){
+Bool stack_isEmpty(const Stack* s) {
+  if (!s) {
     return TRUE;
   }
 
-  if(s->top==0){
+  if (s->top == 0) {
     return TRUE;
   }
 
   return FALSE;
 }
 
-size_t stack_size (const Stack *s){
-  if(!s){
+size_t stack_size(const Stack* s) {
+  if (!s) {
     return -1;
   }
 
   return s->top;
 }
 
-int stack_print(FILE* fp, const Stack *s,  P_stack_ele_print f){
+int stack_print(FILE* fp, const Stack* s, P_stack_ele_print f) {
   int i, n;
-  
-  if(!s || !fp){
+
+  if (!s || !fp) {
     return -1;
   }
 
-  for(i=0; i<s->top; i++){
-    n+=f(fp, s->item[i]);
+  for (i = 0; i < s->top; i++) {
+    n += f(fp, s->item[i]);
   }
 
   return n;
