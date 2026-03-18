@@ -11,6 +11,14 @@ struct _Radio {
 Private functions
 */
 
+/**
+ * @brief gets the position of a song from his id
+ *
+ * @param r Pointer to the radio.
+ * @param id the id of the song in the radio.
+ *
+ * @return returns the song's position
+ */
 int radio_getPositionFromID(const Radio* r, long id) {
   int i;
 
@@ -27,7 +35,15 @@ int radio_getPositionFromID(const Radio* r, long id) {
   return POSITION_NOT_FOUND;
 }
 
-Music* radio_getMusicFromId(const Radio* r, long id) {
+/**
+ * @brief gets a song of a radio from his id
+ *
+ * @param r Pointer to the radio.
+ * @param id the id of the song.
+ *
+ * @return returns the song.
+ */
+Music* radio_getMusicFromId(Radio* r, long id) {
   int i;
 
   if (!r || id < 0) {
@@ -59,7 +75,7 @@ Radio* radio_init(void) {
   int i = INIT_VALUE, j = INIT_VALUE;
 
   /*Allocate dynamic memory*/
-  radio = (Radio*)malloc(1 * sizeof(Radio));
+  radio = (Radio*)calloc(1, sizeof(Radio));
 
   /*Initialize non-array vatiables*/
   radio->num_music = INIT_VALUE;
@@ -110,7 +126,7 @@ Status radio_newMusic(Radio* r, char* desc) {
 
   if (radio_contains(r, idaux)) {
     return OK;
-  }else{
+  } else {
     r->songs[r->num_music] = songaux;
     music_setIndex(songaux, r->num_music);
   }
@@ -233,7 +249,7 @@ int radio_print(FILE* pf, const Radio* r) {
     music_id = music_getId(r->songs[i]);
     counter = music_plain_print(pf, r->songs[i]);
     counter += fprintf(pf, ": ");
-    
+
     num_relations = radio_getNumberOfRelationsFromId(r, music_id);
     if (num_relations > 0) {
       relations = radio_getRelationsFromId(r, music_id);
@@ -242,7 +258,7 @@ int radio_print(FILE* pf, const Radio* r) {
       }
       free(relations);
     }
-    
+
     fprintf(pf, "\n");
   }
 

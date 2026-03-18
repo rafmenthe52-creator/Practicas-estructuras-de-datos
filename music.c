@@ -173,7 +173,7 @@ unsigned short music_getDuration(const Music* m) {
 
 State music_getState(const Music* m) {
   if (!m) {
-    return 0;
+    return ERROR_MUSIC;
   }
 
   return m->state;
@@ -263,7 +263,7 @@ int music_cmp(const void* m1, const void* m2) {
   Music* music1;
   Music* music2;
   int cmp_result;
-  
+
   music1 = (Music*)(m1);
   music2 = (Music*)(m2);
 
