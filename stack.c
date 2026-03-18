@@ -115,8 +115,11 @@ int stack_print(FILE* fp, const Stack* s, P_stack_ele_print f) {
     return -1;
   }
 
+  fprintf(fp, "%lu", stack_size(s));
+
   for (i = 0; i < s->top; i++) {
     n += f(fp, s->item[i]);
+    fprintf(fp, "\n");
   }
 
   return n;
