@@ -13,29 +13,12 @@ int main(void) {
     Music* M3;
     int comp_Result;
     const char* name_Aux;
-    FILE* fp;
-    char line[MAX_LINE];
 
+    /* Create and initialize first song */
+    M1 = music_initFromString("id:\"10\" title:\"Blinding Lights\" artist:\"The Weeknd\" duration:\"200\"");
 
-    /* Open radio.txt and check for errors*/
-    fp = fopen("radio1.txt", "r");
-    if (!fp) {
-        fprintf(stderr, "Error opening file\n");
-        return 1;
-    }
-
-    /* Read number of songs (skip line)*/
-    fgets(line, sizeof(line), fp);
-
-    /* Read first song */
-    fgets(line, sizeof(line), fp);
-    M1 = music_initFromString(line);
-
-    /* Read second song */
-    fgets(line, sizeof(line), fp);
-    M2 = music_initFromString(line);
-
-    fclose(fp);
+    /* Create and initialize second song */
+    M2 = music_initFromString("id:\"20\" title:\"Bohemian Rhapsody\" artist:\"Queen\" duration:\"355\"");
 
     if ((-1 == music_formatted_print(stdout, M1))) {
         fprintf(stdout, "Error while printing song");
