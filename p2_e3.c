@@ -10,7 +10,6 @@ int main(int argc, char** argv){
 	FILE *f1;
   Radio *r1;
   long id_from, id_to;
-	int i;
 
 	if (argc != 4) {
 		return -1;
@@ -22,8 +21,8 @@ int main(int argc, char** argv){
 		return -1;
 	} 
 
-  id_from=argv[2];
-  id_to=argv[3];
+  id_from = atol(argv[2]);
+  id_to = atol(argv[3]);
 
   r1 = radio_init();
 
