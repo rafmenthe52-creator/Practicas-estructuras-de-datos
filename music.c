@@ -328,6 +328,7 @@ int music_plain_print(FILE* pf, const void* m) {
   return count;
 }
 
+
 int music_formatted_print(FILE* pf, const void* m) {
   Music* aux;
   int counter = 0, minutes, sec;

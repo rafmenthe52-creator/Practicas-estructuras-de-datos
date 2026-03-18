@@ -49,13 +49,9 @@ Stack* stack_init (){
 
 
 void stack_free (Stack *s){
-  int i;
-
-  for(i=0; i<s->capacity; i++){
-    free(s->item[i]);
-  }
-
-  free(s);
+  if(!s) return;
+  free(s->item);  
+  free(s);        
 }
 
 Status stack_push (Stack *sin, const void *ele){
@@ -74,7 +70,7 @@ Status stack_push (Stack *sin, const void *ele){
 }
 
 void * stack_pop (Stack *s){
-  if(!s){
+  if(!s || s->top == 0){
     return NULL;
   }
 
@@ -84,11 +80,11 @@ void * stack_pop (Stack *s){
 }
 
 void * stack_top (const Stack *s){
-  if(!s){
+  if(!s || s->top == 0){
     return NULL;
   }
   
-  return s->item[s->top-1];
+  return s->item[s->top - 1];
 }
 
 Bool stack_isEmpty (const Stack *s){
@@ -112,7 +108,7 @@ size_t stack_size (const Stack *s){
 }
 
 int stack_print(FILE* fp, const Stack *s,  P_stack_ele_print f){
-  int i, n;
+  int i, n=0;
   
   if(!s || !fp){
     return -1;
