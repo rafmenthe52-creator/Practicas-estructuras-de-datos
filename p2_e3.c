@@ -34,10 +34,12 @@ int main(int argc, char** argv) {
   radio_print(stdout, r1);
 
   if (ERROR == radio_depthSearch(r1, id_from, id_to)) {
+    radio_free(r1);
     return -1;
   }
 
   fclose(f1);
+  radio_free(r1);
 
   return 0;
 }
