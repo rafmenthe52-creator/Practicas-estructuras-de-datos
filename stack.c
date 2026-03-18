@@ -19,8 +19,7 @@ Stack* stack_expand(Stack *sin){
   
   if(!sin) return NULL;
   
-  new_item = (void**)realloc(sin->item, 
-                              sin->capacity * FCT_CAPACITY * sizeof(void*));
+  new_item = (void**)realloc(sin->item, sin->capacity * FCT_CAPACITY * sizeof(void*));
   if(!new_item) return NULL;
 
   sin->item = new_item;
@@ -28,6 +27,8 @@ Stack* stack_expand(Stack *sin){
 
   return sin;
 }
+
+/*Public funtions*/
 
 Stack* stack_init (){
   Stack *stack;
