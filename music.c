@@ -262,16 +262,19 @@ Status music_setIndex(Music* m, const int index){
 int music_cmp(const void* m1, const void* m2) {
   Music* music1;
   Music* music2;
+  int cmp_result;
+  
   music1 = (Music*)(m1);
   music2 = (Music*)(m2);
 
-  if (music1->id == music2->id) {
-    if (0 == strcmp(music1->title, music2->title)) {
-      return (strcmp(music1->artist, music2->artist));
+  if (music_getId(music1) == music_getId(music2)) {
+    cmp_result = strcmp(music_getTitle(music1), music_getTitle(music2));
+    if (cmp_result == 0) {
+      return strcmp(music_getArtist(music1), music_getArtist(music2));
     } else {
-      return strcmp(music1->title, music2->title);
+      return cmp_result;
     }
-  } else if (music1->id > music2->id) {
+  } else if (music_getId(music1) > music_getId(music2)) {
     return 1;
   } else {
     return -1;
