@@ -12,16 +12,19 @@ Private functions
 */
 
 int radio_getPositionFromID(const Radio* r, long id) {
-  int count = INIT_VALUE;
+  int i;
 
-  while ((music_getId(r->songs[count])) != id) {
-    count++;
-    if (count >= r->num_music) {
-      return POSITION_NOT_FOUND;
+  if (!r || id < 0) {
+    return POSITION_NOT_FOUND;
+  }
+
+  for (i = 0; i < r->num_music; i++) {
+    if (music_getId(r->songs[i]) == id) {
+      return i;
     }
   }
 
-  return count;
+  return POSITION_NOT_FOUND;
 }
 
 Music* radio_getMusicFromId(Radio* r, long id) {
