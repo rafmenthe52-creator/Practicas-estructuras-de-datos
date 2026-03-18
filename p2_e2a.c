@@ -7,26 +7,26 @@
 #include "radio.h"
 #include "stack.h"
 
-Status mergeStacks (Stack *sin1, Stack *sin2, Stack *sout){
-  if(!sin1||!sin2|!sout){
+Status mergeStacks(Stack* sin1, Stack* sin2, Stack* sout) {
+  if (!sin1 || !sin2 | !sout) {
     return ERROR;
   }
 
-  while(stack_isEmpty(sin1)==FALSE && stack_isEmpty(sin2)==FALSE){
-    if(music_getDuration(stack_top(sin1))>music_getDuration(stack_top(sin2))){
+  while (stack_isEmpty(sin1) == FALSE && stack_isEmpty(sin2) == FALSE) {
+    if (music_getDuration(stack_top(sin1)) > music_getDuration(stack_top(sin2))) {
       /*first is larger*/
       stack_push(sout, stack_pop(sin1));
-    }else{
+    } else {
       /*Second is larger or equal*/
       stack_push(sout, stack_pop(sin2));
     }
   }
-  if(stack_isEmpty(sin1)){
-    while (stack_isEmpty(sin2)==FALSE){
+  if (stack_isEmpty(sin1)) {
+    while (stack_isEmpty(sin2) == FALSE) {
       stack_push(sout, stack_pop(sin2));
     }
-  }else{
-    while (stack_isEmpty(sin1)==FALSE){
+  } else {
+    while (stack_isEmpty(sin1) == FALSE) {
       stack_push(sout, stack_pop(sin1));
     }
   }
@@ -34,7 +34,7 @@ Status mergeStacks (Stack *sin1, Stack *sin2, Stack *sout){
   return OK;
 }
 
-void exit_execution(Radio* radio, Music** list, Stack* s, FILE *f) {
+void exit_execution(Radio* radio, Music** list, Stack* s, FILE* f) {
   free(list);
   radio_free(radio);
   stack_free(s);
@@ -43,75 +43,78 @@ void exit_execution(Radio* radio, Music** list, Stack* s, FILE *f) {
   return;
 }
 
-int main(int argc, char** argv){
-  FILE *f1, *f2;
-	Radio *r1, *r2;
-	Stack *s1, *s2, *s3;
-	Music **list1, **list2;
-	int i;
+int main(int argc, char** argv) {
+  FILE* f1, * f2;
+  Radio* r1, * r2;
+  Stack* s1, * s2, * s3;
+  Music** list1, ** list2;
+  int i;
 
-	if (argc != 3) {
-		return -1;
-	}
+  if (argc != 3) {
+    return -1;
+  }
 
-	f1 = fopen(argv[1], "r");
-	if (f1 == NULL) {
-		fprintf(stderr, "Error al leer el fichero de texto 1");
-		return -1;
-	} 
+  f1 = fopen(argv[1], "r");
+  if (f1 == NULL) {
+    fprintf(stderr, "Error al leer el fichero de texto 1");
+    return -1;
+  }
 
   f2 = fopen(argv[2], "r");
-	if (f2 == NULL) {
-		fprintf(stderr, "Error al leer el fichero de texto 2");
-		return -1;
-	} 
+  if (f2 == NULL) {
+    fprintf(stderr, "Error al leer el fichero de texto 2");
+    return -1;
+  }
 
   /*Initialize first stack*/
 
   r1 = radio_init();
 
-	if (radio_readFromFile(f1, r1) == ERROR) {
-		return -1;
-	}
+  if (radio_readFromFile(f1, r1) == ERROR) {
+    return -1;
+  }
 
-	s1 = stack_init();
+  s1 = stack_init();
 
-	list1 = radio_getMusicList(r1);
+  list1 = radio_getMusicList(r1);
 
-	for (i = 0; i < radio_getNumberOfMusic(r1); i++) {
-		stack_push(s1, list1[i]);
-	}
+  for (i = 0; i < radio_getNumberOfMusic(r1); i++) {
+    stack_push(s1, list1[i]);
+  }
 
-  
+
 
   /*Initialize second stack*/
 
   r2 = radio_init();
 
-	if (radio_readFromFile(f2, r2) == ERROR) {
-		return -1;
-	}
+  if (radio_readFromFile(f2, r2) == ERROR) {
+    return -1;
+  }
 
-	s2 = stack_init();
+  s2 = stack_init();
 
-	list2 = radio_getMusicList(r2);
+  list2 = radio_getMusicList(r2);
 
-	for (i = 0; i < radio_getNumberOfMusic(r2); i++) {
-		stack_push(s2, list2[i]);
-	}
+  for (i = 0; i < radio_getNumberOfMusic(r2); i++) {
+    stack_push(s2, list2[i]);
+  }
 
 
   /*Print all the playlist*/
-  fprintf(stdout, "playlist 1:");
+  fprintf(stdout, "playlist 1:\n");
+  fprintf(stdout, "SIZE: %lu\n", stack_size(s1));
   stack_print(stdout, s1, music_plain_print);
-  fprintf(stdout, "\nplaylist 2:");
+  fprintf(stdout, "\nplaylist 2:\n");
+  fprintf(stdout, "SIZE: %lu\n", stack_size(s2));
   stack_print(stdout, s2, music_plain_print);
 
-  s3=stack_init();
+  s3 = stack_init();
 
   mergeStacks(s1, s2, s3);
 
-  fprintf(stdout, "playlist combined:");
+  fprintf(stdout, "\nplaylist combined:\n");
+  fprintf(stdout, "SIZE: %lu\n", stack_size(s3));
   stack_print(stdout, s3, music_plain_print);
 
   exit_execution(r1, list1, s1, f1);

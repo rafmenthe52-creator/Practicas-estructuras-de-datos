@@ -327,7 +327,7 @@ int music_plain_print(FILE* pf, const void* m) {
 
   music = (Music*)(m);
 
-  count = fprintf(pf, "[%ld, %s, %s, %hu, %d, %d]", music->id, music->title, music->artist, music->duration, music->state, music->index);
+  count = fprintf(pf, "[%ld, %s, %s, %hu, %d]", music->id, music->title, music->artist, music->duration, music->state);
 
   return count;
 }
