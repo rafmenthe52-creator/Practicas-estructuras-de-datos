@@ -109,9 +109,7 @@ Status radio_newMusic(Radio* r, char* desc) {
 
   if (radio_contains(r, idaux)) {
     return OK;
-  }
-
-  if (!radio_contains(r, idaux)) {
+  }else{
     r->songs[r->num_music] = songaux;
     music_setIndex(songaux, r->num_music);
   }
@@ -142,23 +140,11 @@ Status radio_newRelation(Radio* r, long orig, long dest) {
 }
 
 Bool radio_contains(const Radio* r, long id) {
-  int i;
-
   if (!r || id < 0) {
     return FALSE;
   }
 
-  if (r->songs[0] == NULL) {
-    return FALSE;
-  }
-
-  for (i = 0; i < r->num_music; i++) {
-    if (music_getId(r->songs[i]) == id) {
-      return TRUE;
-    }
-  }
-
-  return FALSE;
+  return (radio_getPositionFromID(r, id) != POSITION_NOT_FOUND) ? TRUE : FALSE;
 }
 
 int radio_getNumberOfMusic(const Radio* r) {
@@ -234,21 +220,28 @@ long* radio_getRelationsFromId(const Radio* r, long id) {
 }
 
 int radio_print(FILE* pf, const Radio* r) {
-  int counter = 0, i, j;
+  int counter = 0, i, j, num_relations;
+  long* relations;
+  long music_id;
 
   if (!pf || !r) {
     return -1;
   }
 
   for (i = 0; i < r->num_music; i++) {
-
+    music_id = music_getId(r->songs[i]);
     counter = music_plain_print(pf, r->songs[i]);
     counter += fprintf(pf, ": ");
-    for (j = 0; j < r->num_music; j++) {
-      if (r->relations[i][j] == TRUE) {
-        counter += music_plain_print(pf, r->songs[j]);
+    
+    num_relations = radio_getNumberOfRelationsFromId(r, music_id);
+    if (num_relations > 0) {
+      relations = radio_getRelationsFromId(r, music_id);
+      for (j = 0; j < num_relations; j++) {
+        counter += music_plain_print(pf, radio_getMusicFromId(r, relations[j]));
       }
+      free(relations);
     }
+    
     fprintf(pf, "\n");
   }
 
