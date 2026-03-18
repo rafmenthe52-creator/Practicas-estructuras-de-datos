@@ -17,6 +17,7 @@
  * @brief ADT Boolean
  */
 typedef enum {
+    ERROR=-1, /*!< For error checking purposes*/
     FALSE=0, /*!< False value */
     TRUE=1  /*!< True value  */
 } Bool;
