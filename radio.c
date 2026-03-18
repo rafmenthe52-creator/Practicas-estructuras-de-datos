@@ -27,10 +27,10 @@ int radio_getPositionFromID(const Radio* r, long id) {
   return POSITION_NOT_FOUND;
 }
 
-Music* radio_getMusicFromId(Radio* r, long id) {
+Music* radio_getMusicFromId(const Radio* r, long id) {
   int i;
 
-  if (id < 0) {
+  if (!r || id < 0) {
     return NULL;
   }
 
@@ -39,6 +39,7 @@ Music* radio_getMusicFromId(Radio* r, long id) {
       return r->songs[i];
     }
   }
+  return NULL;
 }
 
 /*
