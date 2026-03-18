@@ -14,7 +14,7 @@ struct _Stack {
 
 /*Private functions*/
 
-Stack* stack_expand(Stack *sin){
+/*Stack* stack_expand(Stack *sin){
   Stack *stack;
   
   if(!sin){
@@ -24,16 +24,49 @@ Stack* stack_expand(Stack *sin){
   stack=(Stack*)realloc(sin, sin->capacity*FCT_CAPACITY*sizeof(Stack));
 
   return stack;
+}*/
+
+Stack* stack_expand(Stack *sin){
+  void **new_item;
+  
+  if(!sin) return NULL;
+  
+  new_item = (void**)realloc(sin->item, 
+                              sin->capacity * FCT_CAPACITY * sizeof(void*));
+  if(!new_item) return NULL;
+
+  sin->item = new_item;
+  sin->capacity = sin->capacity * FCT_CAPACITY;
+
+  return sin;
 }
 
 /*Public functions*/
 
-Stack* stack_init (){
+/*Stack* stack_init (){
   Stack *stack;
 
   stack=(Stack*)malloc(INIT_CAPACITY*sizeof(Stack));
 
   stack->capacity=FCT_CAPACITY;
+
+  return stack;
+}*/
+
+Stack* stack_init (){
+  Stack *stack;
+
+  stack = (Stack*)malloc(sizeof(Stack));
+  if(!stack) return NULL;
+  
+  stack->item = (void**)malloc(INIT_CAPACITY * sizeof(void*));
+  if(!stack->item){
+    free(stack);
+    return NULL;
+  }
+
+  stack->capacity = INIT_CAPACITY;
+  stack->top = 0;
 
   return stack;
 }
@@ -49,7 +82,7 @@ void stack_free (Stack *s){
   free(s);
 }
 
-Status stack_push (Stack *sin, const void *ele){
+/*Status stack_push (Stack *sin, const void *ele){
   Stack *s, *sexp;
   
   if(!sin || !ele){
@@ -74,6 +107,21 @@ Status stack_push (Stack *sin, const void *ele){
   s->top++;
 
   return OK;
+}*/
+
+Status stack_push (Stack *sin, const void *ele){
+  if(!sin || !ele) return ERROR;
+
+  if(sin->top == sin->capacity){
+    if(!stack_expand(sin)){
+      return ERROR;
+    }
+  }
+
+  sin->item[sin->top] = (void *)ele;
+  sin->top++;
+
+  return OK;
 }
 
 void * stack_pop (Stack *s){
@@ -83,7 +131,7 @@ void * stack_pop (Stack *s){
 
   s->top--;
 
-  return s->item[s->top+1];
+  return s->item[s->top];
 }
 
 void * stack_top (const Stack *s){
@@ -91,7 +139,7 @@ void * stack_top (const Stack *s){
     return NULL;
   }
   
-  return s->item[s->top];
+  return s->item[s->top-1];
 }
 
 Bool stack_isEmpty (const Stack *s){

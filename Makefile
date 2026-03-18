@@ -14,6 +14,8 @@ OBJECTSP2E2a = p2_e2a.o radio.o music.o stack.o
 OBJECTSP2E2aS = p2_e2a.o radio.o music.o 
 OBJECTSP2E2b = p2_e2b.o radio.o music.o stack.o
 OBJECTSP2E2bS = p2_e2b.o radio.o music.o 
+OBJECTSP2E3 = p2_e3.o radio.o music.o stack.o
+OBJECTSP2E3S = p2_e3.o radio.o music.o 
 ########################################################
 
 all: $(EJS)
@@ -36,6 +38,9 @@ p2_e2a: $(OBJECTSP2E2a)
 p2_e2b: $(OBJECTSP2E2b)
 	$(CC) $(CFLAGS) -o p2_e2b $(OBJECTSP2E2b)
 
+p2_e3: $(OBJECTSP2E3)
+	$(CC) $(CFLAGS) -o p2_e3 $(OBJECTSP2E3)
+
 p1_e1.o: p1_e1.c music.h
 	$(CC) $(CFLAGS) -c p1_e1.c
 
@@ -51,8 +56,11 @@ p2_e1.o: p2_e1.c types.h music.h radio.h stack.h
 p2_e2a.o: p2_e2a.c types.h music.h radio.h stack.h file_utils.h
 	$(CC) $(CFLAGS) -c p2_e2a.c 
 
-p2_e2b.o: p2_e2a.c types.h music.h radio.h stack.h file_utils.h
-	$(CC) $(CFLAGS) -c p2_e2a.c 
+p2_e2b.o: p2_e2b.c types.h music.h radio.h stack.h file_utils.h
+	$(CC) $(CFLAGS) -c p2_e2b.c 
+
+p2_e3.o: p2_e3.c types.h music.h radio.h stack.h 
+	$(CC) $(CFLAGS) -c p2_e3.c
 
 music.o: music.c music.h
 	$(CC) $(CFLAGS) -c music.c
