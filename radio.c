@@ -66,7 +66,7 @@ Radio* radio_init(void) {
     radio->songs[i] = NULL;
   }
 
-  for (i = 0; i > MAX_MSC; i++) {
+  for (i = 0; i < MAX_MSC; i++) {
     for (j = 0; j < MAX_MSC; j++) {
       radio->relations[i][j] = 0;
     }
