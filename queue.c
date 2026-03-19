@@ -82,15 +82,14 @@ void *queue_getBack(const Queue *q){
 
   return q->rear;
 }
-/**
- * @brief This function returns the size of a queue. Note that the function returns
- * 0 if it is called with a NULL pointer. Time complexity: O(1).
- *
- * @param q A pointer to the queue.
- *
- * @return The queue size, 0 in case of error. 
- */
+
 size_t queue_size(const Queue *q){
   if(!q) return QUEUE_NOT_FOUND;
+
+  if(queue_isEmpty==TRUE){
+    return SIZE_0;
+  }
+
+  return (q->front<q->rear) ? q->rear-q->front : (q->rear+MAX_QUEUE)-q->front;
 }
 

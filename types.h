@@ -38,5 +38,6 @@ typedef enum {
 #define INIT_VALUE 0
 #define SECONDS_PER_MINUTE 60
 #define POSITION_NOT_FOUND (-1)
+#define SIZE_0 0
 
 #endif /* TYPES_H_ */
