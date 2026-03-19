@@ -8,7 +8,7 @@
 #include <stdio.h>
 #include "types.h"
 
-#define MAX_QUEUE 100
+#define MAX_QUEUE 10
 #define INIT_FRONT 0
 #define INIT_REAR 1
 

@@ -2,18 +2,19 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "types.h"
 #include "music.h"
 #include "radio.h"
-#include "stack.h"
+#include "queue.h"
+#include "file_utils.h"
+#include "types.h"
 
-int show_player_menu(Stack* history);
-int show_player_menu(Stack* history) {
-	int option;
+int now_playing_menu(Queue* history);
+int now_playing_menu(Queue* history){
+  int option;
 	Music* m = NULL;
 
 	/* Obtenemos canción actual del top de la pila */
-	m = (Music*)stack_top(history);
+	m = (Music*)queue_getFront(history);
 	if (m != NULL) {
 		music_formatted_print(stdout, m);
 	} else {
@@ -22,10 +23,10 @@ int show_player_menu(Stack* history) {
 
 	/* Imprimimos historial (pila) */
 	printf("\nRecently Played:\n");
-	stack_print(stdout, history, music_plain_print);
+	queue_print(stdout, history, music_plain_print);
 
 	/* Mostramos menu y esperamos selección */
-	printf("\n1. Back to previous song\n");
+	printf("\n1. Next song\n");
 	printf("2. Exit\n");
 	printf("Choose an option: ");
 
@@ -34,54 +35,53 @@ int show_player_menu(Stack* history) {
 	return option;
 }
 
-void exit_execution(Radio* radio, Music** list, Stack* s, FILE *f) {
+void exit_execution(Radio* radio, Music** list, Queue* q, FILE *f) {
   free(list);
   radio_free(radio);
-  stack_free(s);
+  queue_free(q);
   fclose(f);
 
   return;
 }
 
-/* TODO MAIN FUNCTION */
-int main(int argc, char** argv) {
+int main(int argc, char** argv){
 	FILE* f;
 	Radio* r;
-	Stack* s;
+	Queue* q;
 	Music** list;
 	int i, mReturn;
 
-	if (argc != 2) {
-		return -1;
-	}
+  if (argc != 2) {
+    return -1;
+  }
 
-	f = fopen(argv[1], "r");
-	if (f == NULL) {
-		fprintf(stderr, "Error al leer el fichero de texto");
-		return -1;
-	}
+  f = fopen(argv[1], "r");
+  if (f == NULL) {
+    fprintf(stderr, "Error al leer el fichero de texto 1");
+    return -1;
+  }
 
-	r = radio_init();
+  r = radio_init();
 
 	if (radio_readFromFile(f, r) == ERROR) {
 		return -1;
 	}
 
-	s = stack_init();
+  q = queue_new();
 
 	list = radio_getMusicList(r);
 
 	for (i = 0; i < radio_getNumberOfMusic(r); i++) {
-		stack_push(s, list[i]);
+		queue_push(q, list[i]);
 	}
 
-	while ((mReturn=show_player_menu(s)) != 2) {
+	while ((mReturn=now_playing_menu(q)) != 2) {
 		if(mReturn==1){
-			stack_pop(s);
+	    queue_pop(q);
 		}
 	}
 
-  exit_execution(r, list, s, f);
+  exit_execution(r, list, q, f);
 
 	return 0;
 }

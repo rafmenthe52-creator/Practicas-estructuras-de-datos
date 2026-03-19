@@ -17,9 +17,8 @@
  * @brief ADT Boolean
  */
 typedef enum {
-    ERROR=-1, /*!< For error checking purposes*/
     FALSE=0, /*!< False value */
-    TRUE=1  /*!< True value  */
+    TRUE=1,  /*!< True value  */
 } Bool;
 
 /** 
@@ -28,7 +27,7 @@ typedef enum {
 typedef enum {
     ERROR=0, /*!< To codify an ERROR output */
     OK=1,     /*!< OK output */
-    FINISHED=2  /*!< Process FINISHED */
+    FINISHED=2,  /*!< Process FINISHED */
 } Status;
 
 /* Common Magic Numbers */
@@ -39,5 +38,6 @@ typedef enum {
 #define SECONDS_PER_MINUTE 60
 #define POSITION_NOT_FOUND (-1)
 #define SIZE_0 0
+#define INVALID_INT (-1)
 
 #endif /* TYPES_H_ */

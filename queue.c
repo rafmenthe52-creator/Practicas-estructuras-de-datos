@@ -1,4 +1,5 @@
 #include "queue.h"
+#include <stdlib.h>
 
 struct _Queue{
   void *data[MAX_QUEUE];  /*pointer to Data inside queue. the data is stored as a pointer*/
@@ -28,19 +29,20 @@ void queue_free(Queue *q){
 
 Bool queue_isEmpty(const Queue *q){
   void **prev_rear;
+  Queue *qAux;
+
+  qAux=(Queue*)(q);
 
   if(!q){
-    return FALSE; /*I decided to return false in this case, but i could have used Bool ERROR, which i created for purposes like this one*/
+    return FALSE; /*I decided to return false in this case*/
   }
 
-  prev_rear = q->data + (q->rear+1 - q->data) % MAX_QUEUE;
+  prev_rear = qAux->data + (qAux->rear+1 - qAux->data) % MAX_QUEUE;
 
-  return (q->front == prev_rear) ? TRUE : FALSE;
+  return (qAux->front == prev_rear) ? TRUE : FALSE;
 }
 
 Status queue_push(Queue *q, void *ele){
-  void **next_rear;
-
   if (!q || !ele) return ERROR;
 
   /*Add the element to the rear*/
@@ -53,7 +55,7 @@ Status queue_push(Queue *q, void *ele){
 }
 
 void *queue_pop(Queue *q){
-  void **next_front, *ele;
+  void *ele;
 
   if(!q || queue_isEmpty(q)==TRUE) return NULL;
 
@@ -74,7 +76,7 @@ void *queue_getFront(const Queue *q){
 
   ele= q->front - (MAX_QUEUE+ q->front-1 -q->data) % MAX_QUEUE;
 
-  return q->front;
+  return ele;
 }
 
 void *queue_getBack(const Queue *q){
@@ -86,10 +88,36 @@ void *queue_getBack(const Queue *q){
 size_t queue_size(const Queue *q){
   if(!q) return QUEUE_NOT_FOUND;
 
-  if(queue_isEmpty==TRUE){
+  if(queue_isEmpty(q)==TRUE){
     return SIZE_0;
   }
 
   return (q->front<q->rear) ? q->rear-q->front : (q->rear+MAX_QUEUE)-q->front;
 }
 
+int queue_print(FILE *fp, const Queue *q, p_queue_ele_print f){
+  Queue *qIn;
+  void *ele;
+  int count = 0, i;
+  
+  if(!fp || !q || !f){
+    return INVALID_INT;
+  }
+
+  if(queue_isEmpty(q)==TRUE) return INVALID_INT;
+
+  if(q->front<q->rear){
+    for(i=((q->front-q->data)%MAX_QUEUE); i<((q->rear-q->data)%MAX_QUEUE); i++){
+      count+=f(fp, q->data[i]);
+      fprintf(fp, "\n");
+    }
+  }else{
+    for(i=((q->front-q->data)%MAX_QUEUE); i<((q->rear-q->data)%MAX_QUEUE); i++){
+      count+=f(fp, q->data[i]);
+      fprintf(fp, "\n");
+      if(i=MAX_QUEUE-1) i=0;
+    }
+  }  
+
+  return count;
+}
