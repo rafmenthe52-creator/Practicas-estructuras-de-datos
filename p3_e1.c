@@ -8,7 +8,6 @@
 #include "file_utils.h"
 #include "types.h"
 
-int now_playing_menu(Queue* history);
 int now_playing_menu(Queue* history){
   int option;
 	Music* m = NULL;
