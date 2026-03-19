@@ -2,8 +2,8 @@
 CC=gcc
 CFLAGS= -g -Wall -pedantic
 STACKFLAGS= -g -Wall -pedantic -lstack -L.
-#EJS = p1_e1 p1_e2 p1_e3 p2_e1 p2_e2a p2_e2b p2_e3 p2_e1S p2_e2aS p2_e2bS p2_e3S p3_e1
-EJS = p3_e1
+EJS = p1_e1 p1_e2 p1_e3 p2_e1 p2_e2a p2_e2b p2_e3 p2_e1S p2_e2aS p2_e2bS p2_e3S p3_e1
+#EJS = p3_e1
 ########################################################
 OBJECTSP1E1 = p1_e1.o music.o
 OBJECTSP1E2 = p1_e2.o radio.o music.o
@@ -106,15 +106,47 @@ run:
 	./p1_e2 
 	@echo ">>>>>>Running p1_e3"
 	./p1_e3 g1.txt
-	@echo ">>>>>>Running p1_e3"
+	@echo ">>>>>>Running p2_e1"
 	./p2_e1 g1.txt
+	@echo ">>>>>>Running p2_e2a"
+	./p2_e2a
+	@echo ">>>>>>Running p2_e2b"
+	./p2_e2b
+	@echo ">>>>>>Running p2_e3"
+	./p2_e3
+	@echo ">>>>>>Running p2_e1S"
+	./p2_e1S
+	@echo ">>>>>>Running p2_e2aS"
+	./p2_e2aS
+	@echo ">>>>>>Running p2_e2bS"
+	./p2_e2bS
+	@echo ">>>>>>Running p2_e3S"
+	./p2_e3S
+	@echo ">>>>>>Running p3_e1"
+	./p3_e1 playlist1.txt
 
 runv:
 	@echo ">>>>>>Running p1_e1 with valgrind"
-	valgrind --leak-check=full ./p1_e1
+	valgrind --leak-check=full --track-origins=yes ./p1_e1
 	@echo ">>>>>>Running p1_e2 with valgrind"
 	valgrind --leak-check=full --track-origins=yes ./p1_e2 
-	@echo ">>>>>>Running p1_e3 with valgrind
-	valgrind --leak-check=full ./p1_e3 radio1.txt
-	@echo ">>>>>>Running p2_e1 with valgrind
-	valgrind --leak-check=full ./p2_e1 playlist1.txt
+	@echo ">>>>>>Running p1_e3 with valgrind"
+	valgrind --leak-check=full --track-origins=yes ./p1_e3 radio1.txt
+	@echo ">>>>>>Running p2_e1 with valgrind"
+	valgrind --leak-check=full --track-origins=yes ./p2_e1 playlist1.txt
+	@echo ">>>>>>Running p2_e2a with valgrind"
+	valgrind --leak-check=full --track-origins=yes ./p2_e2a playlist1.txt playlist2.txt
+	@echo ">>>>>>Running p2_e2b with valgrind"
+	valgrind --leak-check=full --track-origins=yes ./p2_e2b	playlist1.txt playlist2.txt
+	@echo ">>>>>>Running p2_e3 with valgrind"
+	valgrind --leak-check=full --track-origins=yes ./p2_e3 radio1.txt 1 9
+	@echo ">>>>>>Running p2_e1S with valgrind"
+	valgrind --leak-check=full --track-origins=yes ./p2_e1S playlist1.txt
+	@echo ">>>>>>Running p2_e2aS with valgrind"
+	valgrind --leak-check=full --track-origins=yes ./p2_e2aS playlist1.txt playlist2.txt
+	@echo ">>>>>>Running p2_e2bS with valgrind"
+	valgrind --leak-check=full --track-origins=yes ./p2_e2bS playlist1.txt playlist2.txt
+	@echo ">>>>>>Running p2_e3S with valgrind"
+	valgrind --leak-check=full --track-origins=yes ./p2_e3S radio1.txt 1 9
+	@echo ">>>>>>Running p3_e1 with valgrind"
+	valgrind --leak-check=full --track-origins=yes ./p3_e1 playlist1.txt
