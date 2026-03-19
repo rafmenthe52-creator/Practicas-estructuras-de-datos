@@ -65,3 +65,29 @@ void *queue_pop(Queue *q){
 
   return ele;
 }
+
+void *queue_getFront(const Queue *q){
+  if(!q) return NULL;
+
+  return q->front;
+}
+
+void *queue_getBack(const Queue *q){
+  if(!q) return NULL;
+
+  return q->rear;
+}
+/**
+ * @brief This function returns the size of a queue. Note that the function returns
+ * 0 if it is called with a NULL pointer. Time complexity: O(1).
+ *
+ * @param q A pointer to the queue.
+ *
+ * @return The queue size, 0 in case of error. 
+ */
+size_t queue_size(const Queue *q){
+  if(!q) return QUEUE_NOT_FOUND;
+
+
+}
+
