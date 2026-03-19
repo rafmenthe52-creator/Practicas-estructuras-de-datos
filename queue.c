@@ -2,8 +2,8 @@
 
 struct _Queue{
   void *data[MAX_QUEUE];  /*pointer to Data inside queue. the data is stored as a pointer*/
-  void **front;   /*Pointer to pointer*/
-  void **rear;    /*Pointer to pointer*/
+  void **front;   /*Pointer to *data[x]*/
+  void **rear;    /*Pointer to *data[x]*/
 };
 
 Queue *queue_new() {
