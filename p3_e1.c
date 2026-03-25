@@ -8,8 +8,8 @@
 #include "file_utils.h"
 #include "types.h"
 
-int now_playing_menu(Queue* history){
-  int option;
+int now_playing_menu(Queue* history) {
+	int option;
 	Music* m = NULL;
 
 	/* Obtenemos canción actual del top de la pila */
@@ -21,7 +21,7 @@ int now_playing_menu(Queue* history){
 	}
 
 	/* Imprimimos historial (pila) */
-	printf("\nRecently Played:\n");
+	printf("\nUpcoming:\n");
 	queue_print(stdout, history, music_plain_print);
 
 	/* Mostramos menu y esperamos selección */
@@ -34,39 +34,39 @@ int now_playing_menu(Queue* history){
 	return option;
 }
 
-void exit_execution(Radio* radio, Music** list, Queue* q, FILE *f) {
-  free(list);
-  radio_free(radio);
-  queue_free(q);
-  fclose(f);
+void exit_execution(Radio* radio, Music** list, Queue* q, FILE* f) {
+	free(list);
+	radio_free(radio);
+	queue_free(q);
+	fclose(f);
 
-  return;
+	return;
 }
 
-int main(int argc, char** argv){
+int main(int argc, char** argv) {
 	FILE* f;
 	Radio* r;
 	Queue* q;
 	Music** list;
 	int i, mReturn;
 
-  if (argc != 2) {
-    return -1;
-  }
+	if (argc != 2) {
+		return -1;
+	}
 
-  f = fopen(argv[1], "r");
-  if (f == NULL) {
-    fprintf(stderr, "Error al leer el fichero de texto 1");
-    return -1;
-  }
+	f = fopen(argv[1], "r");
+	if (f == NULL) {
+		fprintf(stderr, "Error al leer el fichero de texto 1");
+		return -1;
+	}
 
-  r = radio_init();
+	r = radio_init();
 
 	if (radio_readFromFile(f, r) == ERROR) {
 		return -1;
 	}
 
-  q = queue_new();
+	q = queue_new();
 
 	list = radio_getMusicList(r);
 
@@ -74,13 +74,13 @@ int main(int argc, char** argv){
 		queue_push(q, list[i]);
 	}
 
-	while ((mReturn=now_playing_menu(q)) != 2) {
-		if(mReturn==1){
-	    queue_pop(q);
+	while ((mReturn = now_playing_menu(q)) != 2) {
+		if (mReturn == 1) {
+			queue_pop(q);
 		}
 	}
 
-  exit_execution(r, list, q, f);
+	exit_execution(r, list, q, f);
 
 	return 0;
 }
