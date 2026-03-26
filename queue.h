@@ -10,7 +10,7 @@
 
 #define MAX_QUEUE 10
 #define INIT_FRONT 0
-#define INIT_REAR 1
+#define INIT_REAR 0
 
 /** 
  * @brief Data type to declare a queue variable. 

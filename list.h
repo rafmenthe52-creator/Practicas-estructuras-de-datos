@@ -93,7 +93,7 @@ void *list_popFront(List *pl);
  * Extracts the back element from the List, returning it.
  *
  * @param pl Pointer to the List.
- *
+ *Status queue_push(Queue* q, void* ele)
  * @return Extracted element, NULL if the List is empty or NULL.
  */
 void *list_popBack(List *pl);

@@ -346,6 +346,7 @@ Status radio_depthSearch(Radio* r, long from_id, long to_id) {
   while (stack_isEmpty(stack) == FALSE && status == OK) {
     musicCurrent = stack_pop(stack);
     music_plain_print(stdout, musicCurrent);
+    fprintf(stdout, "\n");
 
     if (music_getId(musicCurrent) == to_id) {
       status = FINISHED;
@@ -387,6 +388,7 @@ Status radio_breadthSearch(Radio* r, long from_id, long to_id) {
   while (queue_isEmpty(queue) == FALSE && status == OK) {
     musicCurrent = queue_pop(queue);
     music_plain_print(stdout, musicCurrent);
+    fprintf(stdout, "\n");
     if (music_getId(musicCurrent) == to_id) {
       status = FINISHED;
     } else {
@@ -409,4 +411,18 @@ Status radio_breadthSearch(Radio* r, long from_id, long to_id) {
   }
 
   return status;
+}
+
+Status radio_set_not_listen(Radio* r){
+  int i;
+
+  if(!r){
+    return ERROR;
+  }
+
+  for(i=0; i < radio_getNumberOfMusic(r); i++){
+    music_setState(r->songs[i], NOT_LISTENED);
+  }
+  
+  return OK;
 }

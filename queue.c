@@ -16,9 +16,16 @@ struct _Queue {
  * @return TRUE if the queue is full, FALSE otherwise.
  */
 static Bool queue_isFull(const Queue* q) {
+
+  int front_idx, prev_front_idx;
+
   if (!q) return FALSE;
 
-  return (q->rear == q->front) ? TRUE : FALSE;
+  front_idx = (int)(q->front - q->data);
+  prev_front_idx = (front_idx - 1 + MAX_QUEUE) % MAX_QUEUE;
+
+  return (q->rear == &q->data[prev_front_idx]) ? TRUE : FALSE;
+  
 }
 
 /*Public funtions*/
@@ -44,14 +51,9 @@ void queue_free(Queue* q) {
 }
 
 Bool queue_isEmpty(const Queue* q) {
-  int rear_idx, prev_rear_idx;
-
   if (!q) return FALSE;
 
-  rear_idx = (int)(q->rear - q->data);
-  prev_rear_idx = (rear_idx - 1 + MAX_QUEUE) % MAX_QUEUE;
-
-  return (q->front == &q->data[prev_rear_idx]) ? TRUE : FALSE;
+  return (q->rear == q->front) ? TRUE : FALSE;
 }
 
 Status queue_push(Queue* q, void* ele) {
@@ -86,7 +88,7 @@ void* queue_getFront(const Queue* q) {
 
   if (!q || queue_isEmpty(q) == TRUE) return NULL;
 
-  front_idx = (q->front - q->data + 1) % MAX_QUEUE;
+  front_idx = (q->front - q->data) % MAX_QUEUE;
 
   return q->data[front_idx];
 }
@@ -122,13 +124,13 @@ int queue_print(FILE* fp, const Queue* q, p_queue_ele_print f) {
 
   idx = (int)((q->front - q->data + 1) % MAX_QUEUE);
   while (idx != (int)(q->rear - q->data)) {
-    idx = (idx + 1) % MAX_QUEUE;
-
     count += f(fp, q->data[idx]);
     if (count < 0) return INVALID_INT;
 
     count += fprintf(fp, "\n");
     if (count < 0) return INVALID_INT;
+
+    idx = (idx + 1) % MAX_QUEUE;
   }
 
   return count;

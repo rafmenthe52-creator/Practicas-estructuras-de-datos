@@ -238,7 +238,7 @@ Status music_setDuration(Music* m, const unsigned short duration) {
 }
 
 Status music_setState(Music* m, const State state) {
-  if (!m || !state) {
+  if (!m) {
     return ERROR;
   }
 

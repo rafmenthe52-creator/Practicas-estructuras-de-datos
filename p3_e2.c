@@ -40,6 +40,14 @@ int main(int argc, char** argv) {
     fprintf(stdout, "Radio:\n");
     radio_print(stdout, r1);
 
+    fprintf(stdout, "----------DFS---------\n");
+    fprintf(stdout, "From music id: %ld\n", id_from);
+    fprintf(stdout, "To music id: %ld\n", id_to);
+    fprintf(stdout, "Output: \n");
+    radio_depthSearch(r1, id_from, id_to);
+
+    radio_set_not_listen(r1);
+
     fprintf(stdout, "----------BFS---------\n");
     fprintf(stdout, "From music id: %ld\n", id_from);
     fprintf(stdout, "To music id: %ld\n", id_to);

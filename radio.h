@@ -227,8 +227,26 @@ Music** radio_getMusicList(Radio* radio);
 **/
 Status radio_depthSearch(Radio* r, long from_id, long to_id);
 
-
-
+/**
+* @brief: Makes a search from the origin music to the final music of a radio using the
+* breath-first search algorithm through an ADT Queue
+*
+* The function prints each visited music while traversing the radio
+*
+* @param r, Pointer to radio
+* @param from_id, id of the origin Music
+* @param to_id, id of the destination Music
+* @return The function returns OK or ERROR
+**/
 Status radio_breadthSearch(Radio* r, long from_id, long to_id);
+
+/**
+ * @brief Sets all music in radio to NOT_LISTENED
+ *
+ * @param r Pointer to the radio.
+ *
+ * @return Status OK or ERROR
+ **/
+Status radio_set_not_listen(Radio* r);
 
 #endif /* radio_H */

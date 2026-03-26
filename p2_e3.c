@@ -33,6 +33,10 @@ int main(int argc, char** argv) {
   fprintf(stdout, "Radio:\n");
   radio_print(stdout, r1);
 
+  fprintf(stdout, "\nFrom music id: %ld\n", id_from);
+  fprintf(stdout, "To music id: %ld\n", id_to);
+  fprintf(stdout, "Music exploration path: \n");
+
   if (ERROR == radio_depthSearch(r1, id_from, id_to)) {
     radio_free(r1);
     return -1;

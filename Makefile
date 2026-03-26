@@ -146,7 +146,7 @@ runv:
 	@echo ">>>>>>Running p2_e2b with valgrind"
 	valgrind --leak-check=full --track-origins=yes ./p2_e2b	playlist1.txt playlist2.txt
 	@echo ">>>>>>Running p2_e3 with valgrind"
-	valgrind --leak-check=full --track-origins=yes ./p2_e3 radio1.txt 1 9
+	valgrind --leak-check=full --track-origins=yes ./p2_e3 playlistDFS.txt 1 9
 	@echo ">>>>>>Running p2_e1S with valgrind"
 	valgrind --leak-check=full --track-origins=yes ./p2_e1S playlist1.txt
 	@echo ">>>>>>Running p2_e2aS with valgrind"
@@ -154,6 +154,8 @@ runv:
 	@echo ">>>>>>Running p2_e2bS with valgrind"
 	valgrind --leak-check=full --track-origins=yes ./p2_e2bS playlist1.txt playlist2.txt
 	@echo ">>>>>>Running p2_e3S with valgrind"
-	valgrind --leak-check=full --track-origins=yes ./p2_e3S radio1.txt 1 9
+	valgrind --leak-check=full --track-origins=yes ./p2_e3S playlistDFS.txt 1 9
 	@echo ">>>>>>Running p3_e1 with valgrind"
 	valgrind --leak-check=full --track-origins=yes ./p3_e1 playlist1.txt
+	@echo ">>>>>>Running p3_e2 with valgrind"
+	valgrind --leak-check=full --track-origins=yes ./p3_e2 radio_bfs.txt 1 4
