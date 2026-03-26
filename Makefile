@@ -2,21 +2,22 @@
 CC=gcc
 CFLAGS= -g -Wall -pedantic
 STACKFLAGS= -g -Wall -pedantic -lstack -L.
-EJS = p1_e1 p1_e2 p1_e3 p2_e1 p2_e2a p2_e2b p2_e3 p2_e1S p2_e2aS p2_e2bS p2_e3S p3_e1
+EJS = p1_e1 p1_e2 p1_e3 p2_e1 p2_e2a p2_e2b p2_e3 p2_e1S p2_e2aS p2_e2bS p2_e3S p3_e1 p3_e2
 #EJS = p3_e1
 ########################################################
 OBJECTSP1E1 = p1_e1.o music.o
-OBJECTSP1E2 = p1_e2.o radio.o music.o
-OBJECTSP1E3 = p1_e3.o radio.o music.o
-OBJECTSP2E1 = p2_e1.o radio.o music.o stack.o
-OBJECTSP2E1S = p2_e1.o radio.o music.o 
-OBJECTSP2E2a = p2_e2a.o radio.o music.o stack.o
-OBJECTSP2E2aS = p2_e2a.o radio.o music.o 
-OBJECTSP2E2b = p2_e2b.o radio.o music.o stack.o
-OBJECTSP2E2bS = p2_e2b.o radio.o music.o 
-OBJECTSP2E3 = p2_e3.o radio.o music.o stack.o
-OBJECTSP2E3S = p2_e3.o radio.o music.o 
+OBJECTSP1E2 = p1_e2.o radio.o music.o queue.o
+OBJECTSP1E3 = p1_e3.o radio.o music.o queue.o
+OBJECTSP2E1 = p2_e1.o radio.o music.o stack.o queue.o
+OBJECTSP2E1S = p2_e1.o radio.o music.o queue.o
+OBJECTSP2E2a = p2_e2a.o radio.o music.o stack.o queue.o
+OBJECTSP2E2aS = p2_e2a.o radio.o music.o queue.o
+OBJECTSP2E2b = p2_e2b.o radio.o music.o stack.o queue.o
+OBJECTSP2E2bS = p2_e2b.o radio.o music.o queue.o
+OBJECTSP2E3 = p2_e3.o radio.o music.o stack.o queue.o
+OBJECTSP2E3S = p2_e3.o radio.o music.o queue.o
 OBJECTSP3E1 = p3_e1.o radio.o music.o queue.o stack.o
+OBJECTSP3E2 = p3_e2.o radio.o music.o queue.o stack.o
 ########################################################
 
 all: $(EJS)
@@ -57,37 +58,43 @@ p2_e3S: $(OBJECTSP2E3S)
 p3_e1: $(OBJECTSP3E1)
 	$(CC) $(CFLAGS) -o p3_e1 $(OBJECTSP3E1)
 
-p1_e1.o: p1_e1.c music.h
+p3_e2: $(OBJECTSP3E2)
+	$(CC) $(CFLAGS) -o p3_e2 $(OBJECTSP3E2)
+
+p1_e1.o: p1_e1.c music.h types.h
 	$(CC) $(CFLAGS) -c p1_e1.c
 
-p1_e2.o: p1_e2.c music.h radio.h
+p1_e2.o: p1_e2.c music.h types.h radio.h stack.h file_utils.h queue.h
 	$(CC) $(CFLAGS) -c p1_e2.c
 	
-p1_e3.o: p1_e3.c music.h radio.h
+p1_e3.o: p1_e3.c music.h types.h radio.h stack.h file_utils.h queue.h
 	$(CC) $(CFLAGS) -c p1_e3.c
 
-p2_e1.o: p2_e1.c types.h music.h radio.h stack.h
+p2_e1.o: p2_e1.c types.h music.h radio.h stack.h file_utils.h queue.h
 	$(CC) $(CFLAGS) -c p2_e1.c 
 
-p2_e2a.o: p2_e2a.c types.h music.h radio.h stack.h file_utils.h
+p2_e2a.o: p2_e2a.c types.h music.h radio.h stack.h file_utils.h queue.h
 	$(CC) $(CFLAGS) -c p2_e2a.c 
 
-p2_e2b.o: p2_e2b.c types.h music.h radio.h stack.h file_utils.h
+p2_e2b.o: p2_e2b.c types.h music.h radio.h stack.h file_utils.h queue.h
 	$(CC) $(CFLAGS) -c p2_e2b.c 
 
-p2_e3.o: p2_e3.c types.h music.h radio.h stack.h 
+p2_e3.o: p2_e3.c radio.h stack.h types.h file_utils.h music.h queue.h
 	$(CC) $(CFLAGS) -c p2_e3.c
 	
 p3_e1.o: p3_e1.c music.h types.h radio.h stack.h file_utils.h queue.h
 	$(CC) $(CFLAGS) -c p3_e1.c
 
-music.o: music.c music.h
+p3_e2.o: p3_e2.c radio.h stack.h types.h file_utils.h music.h queue.h
+	$(CC) $(CFLAGS) -c p3_e2.c
+
+music.o: music.c music.h types.h
 	$(CC) $(CFLAGS) -c music.c
 
-radio.o: radio.c radio.h music.h
+radio.o: radio.c radio.h stack.h types.h file_utils.h music.h queue.h
 	$(CC) $(CFLAGS) -c radio.c
 
-stack.o: stack.c stack.h types.h file_utils.h music.h radio.h
+stack.o: stack.c stack.h types.h file_utils.h music.h radio.h queue.h
 	$(CC) $(CFLAGS) -c stack.c
 
 queue.o: queue.c queue.h types.h

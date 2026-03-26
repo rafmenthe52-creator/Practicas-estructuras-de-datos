@@ -343,7 +343,7 @@ Status radio_depthSearch(Radio* r, long from_id, long to_id) {
 
   stack_push(stack, radio_getMusicFromId(r, from_id));
 
-  while (stack_isEmpty(stack) == FALSE || status == OK) {
+  while (stack_isEmpty(stack) == FALSE && status == OK) {
     musicCurrent = stack_pop(stack);
     music_plain_print(stdout, musicCurrent);
 
@@ -363,6 +363,50 @@ Status radio_depthSearch(Radio* r, long from_id, long to_id) {
     }
   }
   stack_free(stack);
+
+  return status;
+}
+
+Status radio_breadthSearch(Radio* r, long from_id, long to_id) {
+  Status status = OK;
+  Queue* queue;
+  long* relations;
+  Music* musicCurrent;
+  int i;
+
+  if (!r || from_id < 0 || to_id < 0) {
+    return ERROR;
+  }
+
+  queue = queue_new();
+
+  music_setState(radio_getMusicFromId(r, from_id), LISTENED);
+
+  queue_push(queue, radio_getMusicFromId(r, from_id));
+
+  while (queue_isEmpty(queue) == FALSE && status == OK) {
+    musicCurrent = queue_pop(queue);
+    music_plain_print(stdout, musicCurrent);
+    if (music_getId(musicCurrent) == to_id) {
+      status = FINISHED;
+    } else {
+      relations = radio_getRelationsFromId(r, music_getId(musicCurrent));
+      for (i = 0; i < radio_getNumberOfRelationsFromId(r, music_getId(musicCurrent)); i++) {
+        if (music_getState(radio_getMusicFromId(r, relations[i])) == NOT_LISTENED) {
+          /*Change state to listened*/
+          music_setState(radio_getMusicFromId(r, relations[i]), LISTENED);
+          /*Push the related music to the stack*/
+          queue_push(queue, radio_getMusicFromId(r, relations[i]));
+        }
+      }
+      free(relations);
+    }
+  }
+  queue_free(queue);
+
+  if (status == OK) {
+    return ERROR;
+  }
 
   return status;
 }

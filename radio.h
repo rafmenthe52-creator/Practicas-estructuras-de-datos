@@ -16,6 +16,7 @@
 #include <string.h>
 
 #include "stack.h"
+#include "queue.h"
 #include "music.h"
 
 #define MAX_MSC 4096
@@ -208,7 +209,7 @@ Status radio_readFromFile(FILE* fin, Radio* r);
  *
  * @param r Pointer to the radio.
  *
- * @return A dinamic array of musics, which needs to be freed later. 
+ * @return A dinamic array of musics, which needs to be freed later.
  * If error it returns NULL
  **/
 Music** radio_getMusicList(Radio* radio);
@@ -224,6 +225,10 @@ Music** radio_getMusicList(Radio* radio);
 * @param to_id, id of the destination Music
 * @return The function returns OK or ERROR
 **/
-Status radio_depthSearch (Radio *r, long from_id, long to_id);
+Status radio_depthSearch(Radio* r, long from_id, long to_id);
+
+
+
+Status radio_breadthSearch(Radio* r, long from_id, long to_id);
 
 #endif /* radio_H */
