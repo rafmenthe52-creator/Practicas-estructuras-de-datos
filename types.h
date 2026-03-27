@@ -40,5 +40,6 @@ typedef enum {
 #define POSITION_NOT_FOUND (-1)
 #define SIZE_0 0
 #define INVALID_INT (-1)
+#define INIT_SIZE 1
 
 #endif /* TYPES_H_ */
