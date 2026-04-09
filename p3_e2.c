@@ -56,5 +56,5 @@ int main(int argc, char** argv) {
 
     exit_execution(r1, f1);
 
-    return 0;
+    return EXIT_SUCCESS;
 }

@@ -41,5 +41,6 @@ typedef enum {
 #define SIZE_0 0
 #define INVALID_INT (-1)
 #define INIT_SIZE 1
+#define MAX_LINE 256
 
 #endif /* TYPES_H_ */

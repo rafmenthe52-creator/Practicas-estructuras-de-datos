@@ -8,16 +8,14 @@
             "name": "Depurar Practica EdDAT (Docker)",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/p3_e2",
+            "program": "${workspaceFolder}/p3_e3",
             "args": [
-                "radio_bfs.txt",
-                "1",
-                "4"
+                "radio_bfs.txt"
             ],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
-            "externalConsole": false,
+            "externalConsole": true,
             "MIMode": "gdb",
         }
     ]

@@ -20,7 +20,6 @@
 #include "music.h"
 
 #define MAX_MSC 4096
-#define MAX_LINE 256
 
 typedef struct _Radio Radio;
 

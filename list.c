@@ -59,9 +59,7 @@ List *list_new(){
 Bool list_isEmpty(const List *pl){
   if(!pl) return TRUE;
 
-  if(pl->first->next == pl->last){
-    return TRUE;
-  }
+  if(pl->size == 0) return TRUE;
 
   return FALSE;
 }
@@ -131,15 +129,18 @@ void *list_popBack(List *pl){
 
   if(!pl|| list_isEmpty(pl)==TRUE) return NULL;
 
-  pn = pl->first;
+  
 
   /* In the case that the list only has one element */
   if (pl ->first ->next == NULL) {
     e = pl ->first ->info;
-    free (( void *)pl ->first);
-    pl ->first = NULL;
+    pl->last = NULL;
+    free (pl ->first);
+    pl->first = NULL;
     return e;
   } 
+
+  pn = pl->first;
 
   /* Find the pointer whose second next pointer is NULL. In other words the one before last*/
   while (pn->next->next!=NULL){
@@ -147,10 +148,11 @@ void *list_popBack(List *pl){
   }
 
   e = pl->last->info;
-  
+
   free(pl->last);
 
   pn->next = NULL;
+
 
   pl->last = pn;
   pl->size--;
@@ -171,25 +173,52 @@ void *list_getBack(List *pl){
 }
 
 void list_free(List *pl){
+  Node *nCurrent, *nNext;
+  
   if(!pl) return;
 
-  while (list_popFront(pl)!=NULL);
+  if(list_isEmpty(pl) == FALSE){
+    nCurrent = pl->first;
+
+    while(nCurrent != NULL){
+      nNext = nCurrent->next;
+      free(nCurrent);
+      nCurrent = nNext;
+    }
+  }
 
   free(pl);
 
   return;
 }
 
-/**
- * @brief Public function that returns the number of elements in a List.
- * Time complexity: O(1)
- *
- * @param pl Pointer to the List.
- *
- * @return Returns the number of elements in the List, or -1 if the List is NULL.
- */
 int list_size(const List *pl){
   if(!pl) return INVALID_INT;
 
   return pl->size;
+}
+
+int list_print(FILE *fp, const List *pl, p_list_ele_print f){
+  int count = 0;
+  Node *nCurrent;
+
+  if (!fp || !pl || !f) {
+    return INVALID_INT;
+  }
+
+  if (list_isEmpty(pl) == TRUE) return INVALID_INT;
+
+  nCurrent = pl->first;
+
+  while(nCurrent != NULL){
+    count += f(fp, nCurrent->info);
+    if (count < 0) return INVALID_INT;
+    
+    count += fprintf(stdout, "\n");
+    if (count < 0) return INVALID_INT;
+    
+    nCurrent = nCurrent->next;
+  }
+
+  return count;
 }
