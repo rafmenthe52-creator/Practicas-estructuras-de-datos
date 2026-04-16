@@ -1,0 +1,11 @@
+10
+id:"7" title:"Sweet Child O' Mine" artist:"Guns N' Roses" duration:"356"
+id:"5" title:"Smells Like Teen Spirit" artist:"Nirvana" duration:"301"
+id:"10" title:"Shape of You" artist:"Ed Sheeran" duration:"233"
+id:"1" title:"Bohemian Rhapsody" artist:"Queen" duration:"354"
+id:"6" title:"Hotel California" artist:"Eagles" duration:"391"
+id:"2" title:"Imagine" artist:"John Lennon" duration:"183"
+id:"8" title:"Hey Jude" artist:"The Beatles" duration:"431"
+id:"4" title:"Like a Rolling Stone" artist:"Bob Dylan" duration:"369"
+id:"9" title:"Rolling in the Deep" artist:"Adele" duration:"228"
+id:"3" title:"Billie Jean" artist:"Michael Jackson" duration:"294"
