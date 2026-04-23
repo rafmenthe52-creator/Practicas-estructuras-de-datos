@@ -165,17 +165,22 @@ Bool _bst_contains_rec(BSTree *tree, BSTNode *node, const void *ele){
 }
 
 BSTNode* _bst_tree_insert_rec(BSTree *tree, BSTNode *node, const void *ele){
-  if(!node || !ele) return NULL;
+  if(!tree || !ele) return NULL;
 
-  BSTNode **child = (tree->cmp_ele(ele, node->info) < 0) ? &node->left : &node->right;
-  
-  if(!*child){
-    *child = _bst_node_new();
-    if(*child) (*child)->info = (void *)ele;
-    return *child;
+  if(!node){
+    node = _bst_node_new();
+    if(!node) return NULL;
+    node->info = (void *)ele;
+    return node;
   }
-  
-  return _bst_tree_insert_rec(tree, *child, ele);
+
+  if(tree->cmp_ele(ele, node->info) < 0){
+    node->left = _bst_tree_insert_rec(tree, node->left, ele);
+  } else {
+    node->right = _bst_tree_insert_rec(tree, node->right, ele);
+  }
+
+  return node;
 }
 
 
@@ -260,17 +265,17 @@ int tree_postOrder(FILE *f, const BSTree *tree) {
 /**** TODO: find_min, find_max, insert, contains, remove ****/
 
 void *tree_find_min(BSTree *tree){
+  BSTNode *node;
   if(!tree) return NULL;
-  
-
-  return _bst_find_min_rec(tree->root);
+  node = _bst_find_min_rec(tree->root);
+  return node ? node->info : NULL;
 }
 
 void *tree_find_max(BSTree *tree){
+  BSTNode *node;
   if(!tree) return NULL;
-
-  
-  return _bst_find_max_rec(tree->root);
+  node = _bst_find_max_rec(tree->root);
+  return node ? node->info : NULL;
 }
 
 Bool tree_contains(BSTree *tree, const void *elem){
@@ -297,3 +302,22 @@ Status tree_insert(BSTree *tree, const void *elem){
 }
 
 /* To do 23/04/26 */
+
+/**
+ * @brief Public function that removes an element into a Binary Search Tree.
+ *
+ * Removes the (first) occurrence of the element received as argument.
+ *
+ * Note that it is necessary to descend the subtree to obtain the
+ * remove position. So this operation is linear with the length of the path
+ * from the leaf to the root.
+ *
+ * @param tree Pointer to the Tree.
+ * @param elem Pointer to the element to be removed from the Tree.
+ *
+ * @return Status value OK if the removal could be done or the element was not
+ * in the BST, Status value ERROR otherwise.
+ */
+Status tree_remove(BSTree *tree, const void *elem){
+  if(!tree||!elem) return ERROR;
+}
