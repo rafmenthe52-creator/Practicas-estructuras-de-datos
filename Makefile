@@ -2,7 +2,7 @@
 CC=gcc
 CFLAGS= -g -Wall -pedantic
 STACKFLAGS= -g -Wall -pedantic -lstack -L.
-EJS = p1_e1 p1_e2 p1_e3 p2_e1 p2_e2a p2_e2b p2_e3 p2_e1S p2_e2aS p2_e2bS p2_e3S p3_e1 p3_e2 p3_e3 p3_e1S p3_e2S p3_e3S
+EJS = p1_e1 p1_e2 p1_e3 p2_e1 p2_e2a p2_e2b p2_e3 p2_e1S p2_e2aS p2_e2bS p2_e3S p3_e1 p3_e2 p3_e3 p3_e1S p3_e2S p3_e3S p4_e1
 ########################################################
 OBJECTSP1E1 = p1_e1.o music.o
 OBJECTSP1E2 = p1_e2.o radio.o music.o queue.o
@@ -21,6 +21,7 @@ OBJECTSP3E3 = p3_e3.o music.o list.o
 OBJECTSP3E1S = p3_e1.o radio.o music.o stack.o queuelist.o list.o
 OBJECTSP3E2S = p3_e2.o radio.o music.o stack.o queuelist.o list.o
 OBJECTSP3E3S = p3_e3.o music.o list.o queuelist.o
+OBJECTSP4E1 = p4_e1.o music.o radio.o bstree.o list.o stack.o file_utils.o queue.o
 ########################################################
 
 all: $(EJS)
@@ -76,6 +77,9 @@ p3_e3: $(OBJECTSP3E3)
 p3_e3S: $(OBJECTSP3E3S)
 	$(CC) $(CFLAGS) -o p3_e3S $(OBJECTSP3E3S)
 
+p4_e1: $(OBJECTSP4E1)
+	$(CC) $(CFLAGS) -o p4_e1 $(OBJECTSP4E1)
+
 p1_e1.o: p1_e1.c music.h types.h
 	$(CC) $(CFLAGS) -c p1_e1.c
 
@@ -106,6 +110,9 @@ p3_e2.o: p3_e2.c radio.h stack.h types.h file_utils.h music.h queue.h
 p3_e3.o: p3_e3.c types.h music.h list.h
 	$(CC) $(CFLAGS) -c p3_e3.c
 
+p4_e1.o: p4_e1.c types.h bstree.h radio.h music.h stack.h file_utils.h queue.h stack.h 
+	$(CC) $(CFLAGS) -c p4_e1.c
+
 music.o: music.c music.h types.h
 	$(CC) $(CFLAGS) -c music.c
 
@@ -118,11 +125,17 @@ stack.o: stack.c stack.h types.h file_utils.h music.h radio.h queue.h
 queue.o: queue.c queue.h types.h
 	$(CC) $(CFLAGS) -c queue.c
 
+file_utils.o: file_utils.c file_utils.h types.h
+	$(CC) $(CFLAGS) -c file_utils.c
+
 list.o: list.c list.h types.h
 	$(CC) $(CFLAGS) -c list.c
 
 queuelist.o: queuelist.c queue.h types.h list.h
 	$(CC) $(CFLAGS) -c queuelist.c
+
+bstree.o: bstree.c bstree.h list.h types.h
+	$(CC) $(CFLAGS) -c bstree.c
 
 clear:
 	rm -rf *.o 
@@ -158,13 +171,15 @@ run:
 	@echo ">>>>>>Running p3_e2"
 	./p3_e2 radio_bfs.txt 1 4
 	@echo ">>>>>>Running p3_e3"
-	./p3_e3 radio_bfs
+	./p3_e3 radio_bfs.txt
 	@echo ">>>>>>Running p3_e1"
 	./p3_e1S playlist1.txt
 	@echo ">>>>>>Running p3_e2"
 	./p3_e2S radio_bfs.txt 1 4
 	@echo ">>>>>>Running p3_e3"
-	./p3_e3S radio_bfs
+	./p3_e3S radio_bfs.txt
+	@echo ">>>>>>Running p4_e1"
+	./p4_e1 data_music_100.txt
 
 runv:
 	@echo ">>>>>>Running p1_e1 with valgrind"
@@ -201,4 +216,6 @@ runv:
 	valgrind --leak-check=full --track-origins=yes ./p3_e2S radio_bfs.txt 1 2
 	@echo ">>>>>>Running p3_e3S with valgrind"
 	valgrind --leak-check=full --track-origins=yes ./p3_e3S radio_bfs.txt
+	@echo ">>>>>>Running p4_e1 with valgrind"
+	valgrind --leak-check=full --track-origins=yes ./p4_e1 data_music_100.txt
 

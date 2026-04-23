@@ -142,7 +142,7 @@ BSTNode* _bst_find_min_rec(BSTNode *node){
 
 
 BSTNode* _bst_find_max_rec(BSTNode *node){
-  if(!node) return ERROR;
+  if(!node) return NULL;
 
   /* Base case */
   if(!node->right){
@@ -155,31 +155,27 @@ BSTNode* _bst_find_max_rec(BSTNode *node){
 Bool _bst_contains_rec(BSTree *tree, BSTNode *node, const void *ele){
   if(!node || !ele) return FALSE;
 
-  if(tree->cmp_ele(node, ele) == 0) return TRUE;
+  if(tree->cmp_ele(node->info, ele) == 0) return TRUE;
 
-  if(tree->cmp_ele(node, ele) < 0){
+  if(tree->cmp_ele(ele, node->info) < 0){
     return _bst_contains_rec(tree, node->left, ele);
   } else {
     return _bst_contains_rec(tree, node->right, ele);
   }
 }
 
-Status _bst_tree_insert_rec(BSTree *tree, BSTNode *node, const void *ele){
-  if(!node || !ele) return ERROR;
+BSTNode* _bst_tree_insert_rec(BSTree *tree, BSTNode *node, const void *ele){
+  if(!node || !ele) return NULL;
 
-  if(tree->cmp_ele(node->info, ele) < 0){
-    if(!node->left){
-      node->left = _bst_node_new();
-      return OK;
-    }
-    return _bst_tree_insert_rec(tree, node->left, ele);
-  }else{
-    if(!node->right){
-      node-> right= _bst_node_new();
-      return OK;
-    }
-    return _bst_tree_insert_rec(tree, node->right, ele);
+  BSTNode **child = (tree->cmp_ele(ele, node->info) < 0) ? &node->left : &node->right;
+  
+  if(!*child){
+    *child = _bst_node_new();
+    if(*child) (*child)->info = (void *)ele;
+    return *child;
   }
+  
+  return _bst_tree_insert_rec(tree, *child, ele);
 }
 
 
@@ -264,19 +260,17 @@ int tree_postOrder(FILE *f, const BSTree *tree) {
 /**** TODO: find_min, find_max, insert, contains, remove ****/
 
 void *tree_find_min(BSTree *tree){
-  if(!tree) return;
+  if(!tree) return NULL;
   
-  tree->print_ele(stdout, _bst_find_min_rec(tree->root));
 
-  return;
+  return _bst_find_min_rec(tree->root);
 }
 
 void *tree_find_max(BSTree *tree){
-  if(!tree) return;
+  if(!tree) return NULL;
 
-  tree->print_ele(stdout, _bst_find_max_rec(tree->root));
   
-  return;
+  return _bst_find_max_rec(tree->root);
 }
 
 Bool tree_contains(BSTree *tree, const void *elem){
@@ -291,6 +285,15 @@ Status tree_insert(BSTree *tree, const void *elem){
   if(!tree||!elem) return ERROR;
 
   if(tree_contains(tree, elem)) return OK;
-  return _bst_tree_insert_rec(tree, tree->root, elem);
-
+  
+  if(!tree->root){
+    tree->root = _bst_node_new();
+    if(!tree->root) return ERROR;
+    tree->root->info = (void *)elem;
+    return OK;
+  }
+  
+  return _bst_tree_insert_rec(tree, tree->root, elem) == NULL ? ERROR : OK;
 }
+
+/* To do 23/04/26 */

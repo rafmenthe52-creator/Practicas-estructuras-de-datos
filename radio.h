@@ -248,4 +248,14 @@ Status radio_breadthSearch(Radio* r, long from_id, long to_id);
  **/
 Status radio_set_not_listen(Radio* r);
 
+/**
+ * @brief gets the position of a song from his id
+ *
+ * @param r Pointer to the radio.
+ * @param id the id of the song in the radio.
+ *
+ * @return returns the song's position
+ */
+int radio_getPositionFromID(const Radio* r, long id);
+
 #endif /* radio_H */

@@ -104,27 +104,28 @@ int main(int argc, char const *argv[]) {
 		exit(EXIT_FAILURE);
 	}
 
-    f_in = fopen(argv[1], "r");
-    if (!f_in) {
-      return (EXIT_FAILURE);
-    }
+  f_in = fopen(argv[1], "r");
+  if (!f_in) {
+    return (EXIT_FAILURE);
+  }
 	f_out = stdout;
 
-    r = radio_init();
-    if (!r) mainCleanUp (EXIT_FAILURE, r, f_in);
+  r = radio_init();
+  if (!r) mainCleanUp (EXIT_FAILURE, r, f_in);
     
-    // lee el fichero
-    if  (radio_readFromFile(f_in, r) == ERROR) {
-      fprintf(stdout, "Not file or File format incorrect\n");
-      mainCleanUp (EXIT_FAILURE, r, f_in);
-    }
+  // lee el fichero
+  if  (radio_readFromFile(f_in, r) == ERROR) {
+    fprintf(stdout, "Not file or File format incorrect\n");
+    mainCleanUp (EXIT_FAILURE, r, f_in);
+  }
 	
 	music_id = atoi(argv[2]);
 	/* REPLACE BY YOUR OWN IMPLEMENTED FUNCTIONS */
-	songs = radio_getSongs(r);
+	songs = radio_getMusicList(r);
 	n = radio_getNumberOfMusic(r);
 	
-	index = _radio_findmusicById(r, music_id);
+	index = radio_getPositionFromID(r, music_id);
+
 	m = songs[index];
 	if (m == NULL) {
 		printf("Error when initialising music with id: %ld\n", music_id);
