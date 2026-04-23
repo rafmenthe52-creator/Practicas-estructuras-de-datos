@@ -183,6 +183,9 @@ BSTNode* _bst_tree_insert_rec(BSTree *tree, BSTNode *node, const void *ele){
   return node;
 }
 
+BSTNode *_bst_tree_remove_rec(BSTree *tree, BSTNode *node, const void *ele){
+  return NULL;
+}
 
 /*** BSTree TAD functions ***/
 BSTree *tree_init(P_ele_print print_ele, P_ele_cmp cmp_ele) {
@@ -318,6 +321,8 @@ Status tree_insert(BSTree *tree, const void *elem){
  * @return Status value OK if the removal could be done or the element was not
  * in the BST, Status value ERROR otherwise.
  */
-Status tree_remove(BSTree *tree, const void *elem){
+/*Status tree_remove(BSTree *tree, const void *elem){
   if(!tree||!elem) return ERROR;
-}
+
+  return ERROR;
+}*/

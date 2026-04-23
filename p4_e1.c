@@ -187,5 +187,6 @@ int main(int argc, char const *argv[]) {
   }
   
   tree_destroy(t);
+  free(songs);
   mainCleanUp (EXIT_SUCCESS, r, f_in);
 }
