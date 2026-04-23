@@ -122,9 +122,14 @@ Status radio_newMusic(Radio* r, char* desc) {
   }
 
   songaux = music_initFromString(desc);
+  if (!songaux) {
+    return ERROR;
+  }
+
   idaux = music_getId(songaux);
 
   if (radio_contains(r, idaux)) {
+    music_free(songaux);
     return OK;
   } else {
     r->songs[r->num_music] = songaux;
