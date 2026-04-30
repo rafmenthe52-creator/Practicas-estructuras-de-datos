@@ -183,9 +183,70 @@ BSTNode* _bst_tree_insert_rec(BSTree *tree, BSTNode *node, const void *ele){
   return node;
 }
 
-BSTNode *_bst_tree_remove_rec(BSTree *tree, BSTNode *node, const void *ele){
-  return NULL;
+BSTNode *_bst_tree_remove_rec(BSTNode *node, const void *ele, P_ele_cmp f){
+  BSTNode *returnNode = NULL, *nodeAux = NULL;
+
+  if(node == NULL) return NULL;
+
+  if(f(ele, node->info) < 0){
+    _bst_tree_remove_rec(node->left, ele, f);
+    return node->left;
+
+  }else if(f(ele, node->info) > 0){
+    _bst_tree_remove_rec(node->right, ele, f);
+    return node->left;
+
+  }else{
+    /* This is the node equal to the element */
+
+    if((node->left == NULL) && (node->right == NULL)){
+      _bst_node_free(node);
+      return NULL;
+    }else if((node->left == NULL) && (node->right != NULL)){
+      returnNode = node->right;
+      _bst_node_free(node);
+      return returnNode;
+    }else if((node->left != NULL) && (node->right == NULL)){
+      returnNode = node->left;
+      _bst_node_free(node);
+      return returnNode;
+    }else{
+      nodeAux = _bst_find_min_rec(node->right);
+      node->info = nodeAux->info;
+      node->right = _bst_tree_remove_rec(node->right, nodeAux->info, f);
+      return node;
+    }
+  }
+
+
+  return node;
 }
+
+
+void _bst_tree_rangeSearch_rec(BSTNode* node, void *min, void *max, List *list, P_ele_cmp f){
+  if(!min || !max) return NULL;
+
+  /*caso base*/
+  if(!node){
+    return;
+  }
+
+  if(f(node->info, min) > 0){
+    _bst_tree_rangeSearch_rec(node->left, min, max, list, f);
+  }
+
+  if(f(node->info, min) <= 0 && f(node->info, max) >= 0){
+    list_pushFront(list, node->info);
+  }
+
+  if(f(node->info, max) < 0){
+    _bst_tree_rangeSearch_rec(node->right, min, max, list, f);
+  }
+
+
+  return;
+}
+
 
 /*** BSTree TAD functions ***/
 BSTree *tree_init(P_ele_print print_ele, P_ele_cmp cmp_ele) {
@@ -304,25 +365,21 @@ Status tree_insert(BSTree *tree, const void *elem){
   return _bst_tree_insert_rec(tree, tree->root, elem) == NULL ? ERROR : OK;
 }
 
-/* To do 23/04/26 */
-
-/**
- * @brief Public function that removes an element into a Binary Search Tree.
- *
- * Removes the (first) occurrence of the element received as argument.
- *
- * Note that it is necessary to descend the subtree to obtain the
- * remove position. So this operation is linear with the length of the path
- * from the leaf to the root.
- *
- * @param tree Pointer to the Tree.
- * @param elem Pointer to the element to be removed from the Tree.
- *
- * @return Status value OK if the removal could be done or the element was not
- * in the BST, Status value ERROR otherwise.
- */
-/*Status tree_remove(BSTree *tree, const void *elem){
+Status tree_remove(BSTree *tree, const void *elem){
   if(!tree||!elem) return ERROR;
 
-  return ERROR;
-}*/
+  _bst_tree_remove_rec(tree->root, elem, tree->cmp_ele);
+
+  return OK;
+}
+
+List *tree_rangeSearch(const BSTree *tree, void *min, void *max){
+  List* list;
+  if(!tree || !min || !max) return NULL;
+
+  list = list_new();
+  
+  _bst_tree_rangeSearch_rec(tree->root, min, max, list, tree->cmp_ele);
+
+  return list;
+}

@@ -187,6 +187,9 @@ Status tree_remove(BSTree *tree, const void *elem);
 
 /* NUEVAS */
 List *tree_rangeSearch(const BSTree *tree, void *min, void *max);
+
 int tree_countLongSongs(const BSTree *tree, int min_duration);
+
+List *tree_rangeSearch(const BSTree *tree, void *min, void *max);
 
 #endif
