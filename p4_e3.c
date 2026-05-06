@@ -75,3 +75,11 @@ int main(int argc, char const* argv[]) {
 	free(songs);
 	mainCleanUp(EXIT_SUCCESS, r, f_in);
 }
+
+/**
+ * Respuesta a la pregunta:
+ *
+ * En este caso no es posible realizar una poda para optimizar el recorrido del arbol, esto se debe a que el criterio
+ * de ordenación se basa en los id's y no en la duración, por lo que si realizas una poda te puedes dejar un nodo
+ * que si que cumpla los requisitos que se buscan, en este caso la duracion mínima.
+ */

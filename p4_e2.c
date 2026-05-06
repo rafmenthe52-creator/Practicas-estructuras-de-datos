@@ -88,3 +88,10 @@ int main(int argc, char const* argv[]) {
 	free(songs);
 	mainCleanUp(EXIT_SUCCESS, r, f_in);
 }
+
+/**
+ * Respuesta a la pregunta:
+ *
+ * Se observa que la lista esta ordenada de menor a mayor según su id. Esto se debe al diseño y a la forma de recorrer el árbol.
+ * En este caso hemos utilizado un recorrido "in order", por lo que los elementos se van insertando en la lista por orden de menor a mayor
+ */
