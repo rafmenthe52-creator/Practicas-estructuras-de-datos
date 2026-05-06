@@ -219,7 +219,6 @@ BSTNode* _bst_tree_remove_rec(BSTNode* node, const void* ele, P_ele_cmp f) {
     }
   }
 
-
   return node;
 }
 
@@ -243,7 +242,6 @@ void _bst_tree_rangeSearch_rec(BSTNode* node, void* min, void* max, List* list, 
   if (f(node->info, max) < 0) {
     _bst_tree_rangeSearch_rec(node->right, min, max, list, f);
   }
-
 
   return;
 }
