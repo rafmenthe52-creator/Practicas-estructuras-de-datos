@@ -2,6 +2,7 @@
 #include <stdlib.h>
 
 #include "bstree.h"
+#include "music.h"
 
 /* START [_BSTNode] */
 typedef struct _BSTNode {
@@ -247,6 +248,23 @@ void _bst_tree_rangeSearch_rec(BSTNode* node, void* min, void* max, List* list, 
   return;
 }
 
+int _bst_tree_countLongSongs(BSTNode* node, int min_duration){
+int count = 0;
+  
+  if (!node) {
+    return 0;
+  }
+  
+  if (music_getDuration((Music *)node->info) >= min_duration) {
+    count = 1;
+  }
+  
+  count += _bst_tree_countLongSongs(node->left, min_duration);
+  count += _bst_tree_countLongSongs(node->right, min_duration);
+  
+  return count;
+}
+
 
 /*** BSTree TAD functions ***/
 BSTree* tree_init(P_ele_print print_ele, P_ele_cmp cmp_ele) {
@@ -382,4 +400,10 @@ List* tree_rangeSearch(const BSTree* tree, void* min, void* max) {
   _bst_tree_rangeSearch_rec(tree->root, min, max, list, tree->cmp_ele);
 
   return list;
+}
+
+int tree_countLongSongs(const BSTree *tree, int min_duration){
+  if(!tree||min_duration <= 0) return -1;
+
+  return _bst_tree_countLongSongs(tree->root, min_duration);
 }
