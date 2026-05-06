@@ -11,7 +11,7 @@
 typedef struct _BSTree BSTree;
 
 
-typedef int (*P_ele_print)(FILE *, const void *);
+typedef int (*P_ele_print)(FILE*, const void*);
 
 typedef int (*P_ele_cmp)(const void* e1, const void* e2);
 
@@ -28,7 +28,7 @@ typedef int (*P_ele_cmp)(const void* e1, const void* e2);
  *
  * @return Returns the address of the new Tree, or NULL in case of error.
  */
-BSTree *tree_init(P_ele_print print_ele, P_ele_cmp cmp_ele);
+BSTree* tree_init(P_ele_print print_ele, P_ele_cmp cmp_ele);
 
 /**
  * @brief Public function that frees a Tree.
@@ -37,7 +37,7 @@ BSTree *tree_init(P_ele_print print_ele, P_ele_cmp cmp_ele);
  *
  * @param tree Pointer to the Tree.
  */
-void tree_destroy(BSTree *tree);
+void tree_destroy(BSTree* tree);
 
 /**
  * @brief Public function that checks if a Tree is empty.
@@ -49,7 +49,7 @@ void tree_destroy(BSTree *tree);
  * @return Bool value TRUE if the Tree is empty or NULL, Bool value FALSE
  * otherwise.
  */
-Bool tree_isEmpty(const BSTree *tree);
+Bool tree_isEmpty(const BSTree* tree);
 
 /**
  * @brief Public function that returns the Tree's depth.
@@ -58,7 +58,7 @@ Bool tree_isEmpty(const BSTree *tree);
  *
  * @return -1 if the tree is empty, its depth otherwise, -1 for a NULL Tree.
  */
-int tree_depth(const BSTree *tree);
+int tree_depth(const BSTree* tree);
 
 /**
  * @brief Public function that returns the Tree's size (its number of elements).
@@ -67,7 +67,7 @@ int tree_depth(const BSTree *tree);
  *
  * @return 0 if the tree is empty, its size otherwise, -1 for a NULL Tree.
  */
-size_t tree_size(const BSTree *tree);
+size_t tree_size(const BSTree* tree);
 
 /**
  * @brief Public functions that prints the content of a Tree
@@ -90,7 +90,7 @@ size_t tree_size(const BSTree *tree);
  * return, this function returns the number of characters printed, and a
  * negative value if an error occurs.
  */
-int tree_preOrder(FILE *f, const BSTree *tree);
+int tree_preOrder(FILE* f, const BSTree* tree);
 
 /**
  * @brief Same as tree_preOrder but with inOrder algorithm.
@@ -100,7 +100,7 @@ int tree_preOrder(FILE *f, const BSTree *tree);
  *
  * @return See tree_preOrder.
  */
-int tree_inOrder(FILE *f, const BSTree *tree);
+int tree_inOrder(FILE* f, const BSTree* tree);
 
 /**
  * @brief Same as tree_preOrder but with postOrder algorithm.
@@ -110,7 +110,7 @@ int tree_inOrder(FILE *f, const BSTree *tree);
  *
  * @return See tree_preOrder.
  */
-int tree_postOrder(FILE *f, const BSTree *tree);
+int tree_postOrder(FILE* f, const BSTree* tree);
 
 /**
  * @brief Public function that finds the minimum element in a Binary Search
@@ -124,7 +124,7 @@ int tree_postOrder(FILE *f, const BSTree *tree);
  *
  * @return Pointer to the minimum element if found, NULL otherwise.
  */
-void *tree_find_min(BSTree *tree);
+void* tree_find_min(BSTree* tree);
 
 /**
  * @brief Public function that finds the maximum element in a Binary Search
@@ -138,7 +138,7 @@ void *tree_find_min(BSTree *tree);
  *
  * @return Pointer to the maximum element if found, NULL otherwise.
  */
-void *tree_find_max(BSTree *tree);
+void* tree_find_max(BSTree* tree);
 
 /**
  * @brief Public function that tells if an element is in a Binary Search Tree.
@@ -148,7 +148,7 @@ void *tree_find_max(BSTree *tree);
  *
  * @return Bool value TRUE if the element was found, FALSE otherwise.
  */
-Bool tree_contains(BSTree *tree, const void *elem);
+Bool tree_contains(BSTree* tree, const void* elem);
 
 /**
  * @brief Public function that inserts an element into a Binary Search Tree.
@@ -166,7 +166,7 @@ Bool tree_contains(BSTree *tree, const void *elem);
  * @return Status value OK if the insertion could be done or the element was
  * already in the BST, Status value ERROR otherwise.
  */
-Status tree_insert(BSTree *tree, const void *elem);
+Status tree_insert(BSTree* tree, const void* elem);
 
 /**
  * @brief Public function that removes an element into a Binary Search Tree.
@@ -183,13 +183,15 @@ Status tree_insert(BSTree *tree, const void *elem);
  * @return Status value OK if the removal could be done or the element was not
  * in the BST, Status value ERROR otherwise.
  */
-Status tree_remove(BSTree *tree, const void *elem);
+Status tree_remove(BSTree* tree, const void* elem);
 
 /* NUEVAS */
-List *tree_rangeSearch(const BSTree *tree, void *min, void *max);
+List* tree_rangeSearch(const BSTree* tree, void* min, void* max);
 
-int tree_countLongSongs(const BSTree *tree, int min_duration);
+int tree_countLongSongs(const BSTree* tree, int min_duration);
 
-List *tree_rangeSearch(const BSTree *tree, void *min, void *max);
+List* tree_rangeSearch(const BSTree* tree, void* min, void* max);
+
+int tree_countLongSongs(BSTNode* root, int min_duration);
 
 #endif

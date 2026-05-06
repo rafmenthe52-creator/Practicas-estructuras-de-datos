@@ -223,7 +223,7 @@ BSTNode* _bst_tree_remove_rec(BSTNode* node, const void* ele, P_ele_cmp f) {
 }
 
 
-void _bst_tree_rangeSearch_rec(BSTNode* node, void* min, void* max, List* list, P_ele_cmp f) {
+void _tree_rangeSearch_rec(BSTNode* node, void* min, void* max, List* list, P_ele_cmp cmp) {
   if (!min || !max) return;
 
   /*caso base*/
@@ -232,19 +232,31 @@ void _bst_tree_rangeSearch_rec(BSTNode* node, void* min, void* max, List* list, 
   }
 
   if (f(node->info, min) > 0) {
-    _bst_tree_rangeSearch_rec(node->left, min, max, list, f);
+    _bst_tree_rangeSearch_rec(node->left, min, max, list, cmp);
   }
 
   if (f(node->info, min) >= 0 && f(node->info, max) <= 0) {
-    list_pushFront(list, node->info);
+    list_pushBack(list, node->info);
   }
 
   if (f(node->info, max) < 0) {
-    _bst_tree_rangeSearch_rec(node->right, min, max, list, f);
+    _bst_tree_rangeSearch_rec(node->right, min, max, list, cmp);
   }
 
 
   return;
+}
+
+int _tree_countLongSongs_rec(BSTNode* node, int min_duration) {
+  int count = 0;
+
+  if (min_duration < 0) return INVALID_INT;
+
+  if (!node) {
+    return count;
+  }
+
+  if ()
 }
 
 
@@ -382,4 +394,8 @@ List* tree_rangeSearch(const BSTree* tree, void* min, void* max) {
   _bst_tree_rangeSearch_rec(tree->root, min, max, list, tree->cmp_ele);
 
   return list;
+}
+
+int tree_countLongSongs(BSTNode* root, int min_duration) {
+
 }
