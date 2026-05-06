@@ -190,12 +190,12 @@ BSTNode* _bst_tree_remove_rec(BSTNode* node, const void* ele, P_ele_cmp f) {
   if (node == NULL) return NULL;
 
   if (f(ele, node->info) < 0) {
-    _bst_tree_remove_rec(node->left, ele, f);
-    return node->left;
+    node->left = _bst_tree_remove_rec(node->left, ele, f);
+    return node;
 
   } else if (f(ele, node->info) > 0) {
-    _bst_tree_remove_rec(node->right, ele, f);
-    return node->left;
+    node->right = _bst_tree_remove_rec(node->right, ele, f);
+    return node;
 
   } else {
     /* This is the node equal to the element */
@@ -231,22 +231,22 @@ void _tree_rangeSearch_rec(BSTNode* node, void* min, void* max, List* list, P_el
     return;
   }
 
-  if (f(node->info, min) > 0) {
-    _bst_tree_rangeSearch_rec(node->left, min, max, list, cmp);
+  if (cmp(node->info, min) > 0) {
+    _tree_rangeSearch_rec(node->left, min, max, list, cmp);
   }
 
-  if (f(node->info, min) >= 0 && f(node->info, max) <= 0) {
+  if (cmp(node->info, min) >= 0 && cmp(node->info, max) <= 0) {
     list_pushBack(list, node->info);
   }
 
-  if (f(node->info, max) < 0) {
-    _bst_tree_rangeSearch_rec(node->right, min, max, list, cmp);
+  if (cmp(node->info, max) < 0) {
+    _tree_rangeSearch_rec(node->right, min, max, list, cmp);
   }
 
   return;
 }
 
-int _bst_tree_countLongSongs(BSTNode* node, int min_duration) {
+int _tree_countLongSongs_rec(BSTNode* node, int min_duration) {
   int count = 0;
 
   if (!node) {
@@ -257,8 +257,8 @@ int _bst_tree_countLongSongs(BSTNode* node, int min_duration) {
     count = 1;
   }
 
-  count += _bst_tree_countLongSongs(node->left, min_duration);
-  count += _bst_tree_countLongSongs(node->right, min_duration);
+  count += _tree_countLongSongs_rec(node->left, min_duration);
+  count += _tree_countLongSongs_rec(node->right, min_duration);
 
   return count;
 }
@@ -384,7 +384,7 @@ Status tree_insert(BSTree* tree, const void* elem) {
 Status tree_remove(BSTree* tree, const void* elem) {
   if (!tree || !elem) return ERROR;
 
-  _bst_tree_remove_rec(tree->root, elem, tree->cmp_ele);
+  tree->root = _bst_tree_remove_rec(tree->root, elem, tree->cmp_ele);
 
   return OK;
 }
@@ -395,7 +395,7 @@ List* tree_rangeSearch(const BSTree* tree, void* min, void* max) {
 
   list = list_new();
 
-  _bst_tree_rangeSearch_rec(tree->root, min, max, list, tree->cmp_ele);
+  _tree_rangeSearch_rec(tree->root, min, max, list, tree->cmp_ele);
 
   return list;
 }
@@ -403,5 +403,5 @@ List* tree_rangeSearch(const BSTree* tree, void* min, void* max) {
 int tree_countLongSongs(const BSTree* tree, int min_duration) {
   if (!tree || min_duration <= 0) return -1;
 
-  return _bst_tree_countLongSongs(tree->root, min_duration);
+  return _tree_countLongSongs_rec(tree->root, min_duration);
 }

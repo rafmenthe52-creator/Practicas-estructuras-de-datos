@@ -192,6 +192,4 @@ int tree_countLongSongs(const BSTree* tree, int min_duration);
 
 List* tree_rangeSearch(const BSTree* tree, void* min, void* max);
 
-int tree_countLongSongs(BSTNode* root, int min_duration);
-
 #endif
